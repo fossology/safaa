@@ -1,2 +1,2 @@
-recursive-include src/Safaa/models *
-recursive-include src/Safaa/configs *
+recursive-include src/safaa/models *
+recursive-include src/safaa/configs *
