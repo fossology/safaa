@@ -1,0 +1,2 @@
+recursive-include src/safaa/models *
+recursive-include src/safaa/configs *
