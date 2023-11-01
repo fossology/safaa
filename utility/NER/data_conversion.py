@@ -6,92 +6,94 @@ from sklearn.model_selection import train_test_split
 
 def text_to_json(sentences):
     """
-    text (str): source text
-    Returns (list (dict)): deccano format json
+    Convert list of sentences to a specific JSON format.
     """
-    ## Converts list of string to json file to start labeling them.
     new_json = list()
     for sentence in tqdm(sentences):
         labels = list()
+        # Appending the sentence and its (empty) labels to the resulting JSON
         new_json.append({'text': sentence, "labels": labels})
     return new_json
 
 def text_to_json_model_assisted(sentences, model):
-    # Uses the NER model to predict the labels before hand. Helps as a way of 
-    # partially labeling the datasets before manually clearning it.
+    """
+    Convert list of sentences to a JSON format using a model for predictions.
+    """
     sentences = model(sentences)
     new_json = list()
     for sentence in tqdm(sentences):
         labels = list()
-        for e in sentence.ents:
+        for e in sentence.ents:  # Iterating through detected entities in the sentence
+            # Appending start, end character positions and label of the entity
             labels.append([e.start_char, e.end_char, e.label_])
+        # Appending the sentence and its detected labels to the resulting JSON
         new_json.append({'text': sentence.text, "labels": labels})
     return new_json
 
 def text_to_json_labels_separate(sentences, labels, entity_name):
-    # Assumes that the labels are provided separately, and are either part of the 
-    # entire sentence. if label is '' or None, removes that row. If label can't be matched
-    # inside sentence, removes that row
-
-    # entity_name is the name of the NER entity used for labeling
-
+    """
+    Convert list of sentences and labels to a JSON format with specific entity name.
+    """
     new_json = list()
-    for sentence, label in tqdm(zip(sentences, labels)):
+    for sentence, label in tqdm(zip(sentences, labels)): 
         if label is None or label == '':
-            continue
+            continue  # If label is empty or None, skip the iteration
         
+        # Search for the exact match of the label in the sentence
         pattern = r"\b" + re.escape(label) + r"\b"
         match = re.search(pattern, sentence)
         if not match:
-            continue
-
-        new_json.append({'text': sentence.text, "labels": [match.start, 
-                                                       match.end, entity_name]})
-   
+            continue  # If label is not found in the sentence, skip the iteration
+        
+        # Appending the sentence and the position of its label to the resulting JSON
+        new_json.append({'text': sentence, "labels": [match.start(), match.end(), entity_name]})
     return new_json
 
 def write_json_to_disk(new_json, path):
-    # make sure the file is jsonL if using doccano
+    """
+    Write a list of dictionaries in the JSONL format to disk.
+    """
     with open(path, 'w') as f:
         for item in new_json:
+            # Writing each dictionary in the list as a separate line in the JSONL file
             f.write(json.dumps(item) + '\n')
 
-# Convert JSONL to spacy compatible format
 def convert_jsonl_to_spacy(jsonl_path, spacy_path):
     """
-    Load JSONL data from a file and convert it to spaCy's training format.
-    :param file_path: The path of the JSONL file.
-    :return: A list of training examples.
+    Load data from a JSONL file and convert it to spaCy's training format.
     """
     data = []
     with open(jsonl_path, 'r') as f:
         for line in f:
             item = json.loads(line)
             text = item['text']
-            entities = [(e[0], e[1], e[2]) for e in item['label']]
+            # Extracting entities from the JSONL line
+            entities = [(e[0], e[1], e[2]) for e in item['labels']]
             data.append((text, {'entities': entities}))
     
-    nlp = spacy.blank('en')
-    doc_bin = spacy.tokens.DocBin()
+    nlp = spacy.blank('en')  # Creating a blank English NLP object
+    doc_bin = spacy.tokens.DocBin()  # Initializing a DocBin for efficient storage of `Doc` objects
     for text, annotations in data:
-        doc = nlp.make_doc(text)
-        example = spacy.training.Example.from_dict(doc, annotations)
-        doc_bin.add(example.reference)
-    doc_bin.to_disk(spacy_path)
+        doc = nlp.make_doc(text)  # Creating a `Doc` object from text
+        example = spacy.training.Example.from_dict(doc, annotations)  # Creating an example from the `Doc` and its annotations
+        doc_bin.add(example.reference)  # Adding the `Doc` to the DocBin
+    doc_bin.to_disk(spacy_path)  # Saving the DocBin to disk
 
 def spacy_train_test_split(file_path, split=0.2, random_state=42, shuffle=True):
-
-    doc_bin = spacy.tokens.DocBin().from_disk(file_path)
-    nlp = spacy.load("en_core_web_sm")
-    docs = list(doc_bin.get_docs(nlp.vocab))
+    """
+    Split spaCy formatted data into training and testing sets.
+    """
+    doc_bin = spacy.tokens.DocBin().from_disk(file_path)  # Loading the DocBin from disk
+    nlp = spacy.load("en_core_web_sm")  # Loading the English small core model
+    docs = list(doc_bin.get_docs(nlp.vocab))  # Retrieving `Doc` objects from the DocBin using the model's vocabulary
+    # Splitting the `Doc` objects into training and testing sets
     train_docs, test_docs = train_test_split(docs, test_size=split, random_state=random_state, shuffle=shuffle)
-    train_doc_bin = spacy.tokens.DocBin(docs=train_docs)
-    test_doc_bin = spacy.tokens.DocBin(docs=test_docs)
+    train_doc_bin = spacy.tokens.DocBin(docs=train_docs)  # Creating a DocBin for training docs
+    test_doc_bin = spacy.tokens.DocBin(docs=test_docs)  # Creating a DocBin for testing docs
     
+    # Deriving the paths for saving the training and testing DocBins
     train_path = file_path.split('.spacy')[0] + '-train.spacy'
     test_path = file_path.split('.spacy')[0] + '-test.spacy'
 
-    train_doc_bin.to_disk(train_path)
-    test_doc_bin.to_disk(test_path)
-
-    
+    train_doc_bin.to_disk(train_path)  # Saving the training DocBin to disk
+    test_doc_bin.to_disk(test_path)  # Saving the testing DocBin to disk
