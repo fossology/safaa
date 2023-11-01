@@ -23,7 +23,7 @@ pip install safaa
 ### Initialization
 
 ```
-from Safaa.Safaa import *
+from safaa.Safaa import *
 agent = SafaaAgent()
 ```
 

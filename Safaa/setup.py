@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Safaa',
-    version='0.0.2',
+    name='safaa',
+    version='0.0.1',
     url='https://github.com/fossology/copyrightfpd',
     author='Abdelrahman Jamal',
     author_email='abdelrahmanjamal5565@gmail.com',
@@ -20,8 +20,8 @@ setup(
         'scikit-learn>=1.3.0',
     ],
     classifiers=[
-        'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+    'Programming Language :: Python :: 3',
+    'License :: OSI Approved :: GNU Lesser General Public License v2.1 (LGPLv2.1)',
     ],
     include_package_data=True,
     include_dirs=[],
