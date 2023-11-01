@@ -25,7 +25,7 @@ setup(
     ],
     include_package_data=True,
     include_dirs=[],
-    package_data={'': ['src/Safaa/models/*.pkl', 'src/Safaa/models/*.',
-                       'src/Safaa/configs/*']},
+    package_data={'': ['src/safaa/models/*.pkl', 'src/safaa/models/*.',
+                       'src/safaa/configs/*']},
     python_requires='>=3.6',
 )
