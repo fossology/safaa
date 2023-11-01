@@ -1,6 +1,6 @@
 # Safaa
 
-Safaa is a Python package designed for handling false positive detection in copyright notices. Additionally, it can declutter copytright notices, removing unnecessary extra text.
+Safaa is a Python package designed for handling false positive detection in copyright notices. Additionally, it can declutter copyright notices, removing unnecessary extra text.
 
 ## Features
 
