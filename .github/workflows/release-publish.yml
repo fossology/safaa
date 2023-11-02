@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: © 2023 Siemens AG
+# SPDX-FileContributor: Gaurav Mishra <mishra.gaurav@siemens.com>
+
+# SPDX-License-Identifier: LGPL-2.1-only
+
+name: Publish Release Packages
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  pypi-publish:
+    runs-on: ubuntu-latest
+#    environment:
+#      name: pypi
+#      url: https://pypi.org/p/safaa
+#    permissions:
+#      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Install wheel
+        run: python3 -m pip install --upgrade wheel
+      - name: Build packages
+        run: python3 setup.py sdist bdist_wheel
+        working-directory: ./Safaa
+      - name: Upload Packages to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
