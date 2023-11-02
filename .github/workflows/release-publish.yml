@@ -13,11 +13,11 @@ on:
 jobs:
   pypi-publish:
     runs-on: ubuntu-latest
-#    environment:
-#      name: pypi
-#      url: https://pypi.org/p/safaa
-#    permissions:
-#      id-token: write
+    environment:
+      name: pypi
+      url: https://pypi.org/p/safaa
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup python
@@ -33,6 +33,4 @@ jobs:
       - name: Upload Packages to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: ./Safaa/dist
