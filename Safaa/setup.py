@@ -1,8 +1,14 @@
 # SPDX-FileCopyrightText: © 2023 abdelrahmanjamal5565@gmail.com
 #
 # SPDX-License-Identifier: LGPL-2.1-only
+from os import path
 
 from setuptools import setup, find_packages
+
+here = path.dirname(path.abspath(path.dirname(__file__)))
+# fetch the long description from the README.md
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='safaa',
@@ -15,6 +21,8 @@ setup(
      to predict whether a given copyright output from the Fossology software
      is a false positive or not. It is also able to remove extra
      text from a copyright notice.""",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=find_packages(where='src', ),
     package_dir={"": "src"},
     install_requires=[
@@ -25,7 +33,7 @@ setup(
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: GNU Lesser General Public License v2.1 (LGPLv2.1)',
+        'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)',
     ],
     include_package_data=True,
     include_dirs=[],
