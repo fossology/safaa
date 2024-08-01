@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: © 2023 abdelrahmanjamal5565@gmail.com
-#
+# SPDX-FileContributor: Kaushlendra Pratap Singh <kaushlendra-pratap.singh@siemens.com>
 # SPDX-License-Identifier: LGPL-2.1-only
 
 """
@@ -14,9 +14,9 @@ import pkg_resources
 import shutil
 
 # Constants
-DEFAULT_MODEL_DIR = pkg_resources.resource_filename(__name__, 'models')
-LOCAL_MODEL_DIR = '/home/fossy/Safaa'
-CONFIGS_DIR = pkg_resources.resource_filename(__name__, 'configs')
+DEFAULT_MODEL_DIR = pkg_resources.resource_filename(__name__, "models")
+LOCAL_MODEL_DIR = "/home/fossy/Safaa"
+CONFIGS_DIR = pkg_resources.resource_filename(__name__, "configs")
 
 
 class SafaaAgent:
@@ -30,18 +30,25 @@ class SafaaAgent:
         """
 
         # Determine the model directory based on the provided arguments
-        model_dir = model_dir if model_dir else (
-            LOCAL_MODEL_DIR if use_local_model and os.path.exists(
-                LOCAL_MODEL_DIR) else DEFAULT_MODEL_DIR)
+        model_dir = (
+            model_dir
+            if model_dir
+            else (
+                LOCAL_MODEL_DIR
+                if use_local_model and os.path.exists(LOCAL_MODEL_DIR)
+                else DEFAULT_MODEL_DIR
+            )
+        )
 
         # Construct the file paths for each model
-        self.false_positive_detector_path = os.path.join(model_dir,
-                                                         'false_positive_detection_model.pkl')
-        self.vectorizer_path = os.path.join(model_dir,
-                                            'false_positive_detection_vectorizer.pkl')
-        self.entity_recognizer_path = os.path.join(model_dir,
-                                                   'entity_recognizer')
-        self.declutter_model_path = os.path.join(model_dir, 'declutter_model')
+        self.false_positive_detector_path = os.path.join(
+            model_dir, "false_positive_detection_model_sgd.pkl"
+        )
+        self.vectorizer_path = os.path.join(
+            model_dir, "false_positive_detection_vectorizer.pkl"
+        )
+        self.entity_recognizer_path = os.path.join(model_dir, "entity_recognizer")
+        self.declutter_model_path = os.path.join(model_dir, "declutter_model")
 
         # Load the models from the constructed file paths
         self._load_models()
@@ -129,9 +136,10 @@ class SafaaAgent:
             for entity in doc.ents:
                 # If the entity is a copyright holder entity, replace it with
                 # ' ENTITY '
-                if entity.label_ == 'ENT':
-                    new_sentence = re.sub(re.escape(entity.text), ' ENTITY ',
-                                          new_sentence)
+                if entity.label_ == "ENT":
+                    new_sentence = re.sub(
+                        re.escape(entity.text), " ENTITY ", new_sentence
+                    )
             new_data.append(new_sentence)
         return new_data
 
@@ -158,15 +166,16 @@ class SafaaAgent:
 
         # Define the substitution patterns and their replacements
         subs = [
-            (r'\d{4}', ' DATE '),
-            (r'\d+', ' '),
-            (r'©', ' COPYRIGHTSYMBOL '),
-            (r'\(c\)', ' COPYRIGHTSYMBOL '),
-            (r'\(C\)', ' COPYRIGHTSYMBOL '),
+            (r"\d{4}", " DATE "),
+            (r"\d+", " "),
+            (r"©", " COPYRIGHTSYMBOL "),
+            (r"\(c\)", " COPYRIGHTSYMBOL "),
+            (r"\(C\)", " COPYRIGHTSYMBOL "),
             (
-            r"""(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])""",
-            ' EMAIL '),
-            (r'[^a-zA-Z0-9]', ' ')
+                r"""(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])""",
+                " EMAIL ",
+            ),
+            (r"[^a-zA-Z0-9]", " "),
         ]
         # Perform the substitutions for each pattern in the list
         for pattern, replacement in subs:
@@ -194,18 +203,21 @@ class SafaaAgent:
         data = self.vectorizer.transform(data)
 
         # Check if the model supports probability prediction
-        if hasattr(self.false_positive_detector, 'predict_proba'):
+        if hasattr(self.false_positive_detector, "predict_proba"):
             # Get probability predictions from the model
             predictions = self.false_positive_detector.predict_proba(data)
             # Classify based on the given threshold. If the threshhold is not
             # met, automatically sets the prediction to true
-            return ['f' if prediction[1] >= threshold else 't' for prediction in
-                    predictions]
+            return [
+                "f" if prediction[1] >= threshold else "t" for prediction in predictions
+            ]
 
         # Get binary predictions from the model if probability prediction is not
         # supported
-        return ['f' if prediction == 1 else 't' for prediction in
-                self.false_positive_detector.predict(data)]
+        return [
+            "f" if prediction == 1 else "t"
+            for prediction in self.false_positive_detector.predict(data)
+        ]
 
     def declutter(self, data, predictions):
         """
@@ -224,14 +236,17 @@ class SafaaAgent:
         # Remove text from sentences marked as false positives, and keep the
         # entities (copyrights) in other sentences
         return [
-            '' if prediction == 'f' else ' '.join(
-                [ent.text for ent in self.declutter_model(sentence).ents])
+            (
+                ""
+                if prediction == "f"
+                else " ".join([ent.text for ent in self.declutter_model(sentence).ents])
+            )
             for sentence, prediction in zip(data, predictions)
         ]
 
     def train_false_positive_detector_model(self, data, labels):
         """
-        Trains the false positive detector model from scratch.
+        Trains the false positive detector model iteratively.
 
         Parameters:
         data (iterable): The data to train the model on.
@@ -241,12 +256,13 @@ class SafaaAgent:
         # Preprocess the data before training
         preprocessed_data = self.preprocess_data(data)
         # Fit the vectorizer to the preprocessed data
-        vectorized_data = self.vectorizer.fit_transform(preprocessed_data)
+        vectorized_data = self.vectorizer.transform(preprocessed_data)
         # Train the false positive detector model
-        self.false_positive_detector.fit(vectorized_data, labels)
+        self.false_positive_detector.partial_fit(vectorized_data, labels)
 
-    def train_ner_model(self, train_path, dev_path, declutter_model=False,
-                        config_path=None):
+    def train_ner_model(
+        self, train_path, dev_path, declutter_model=False, config_path=None
+    ):
         """
         Trains the named entity recognition model using the provided training and
         development datasets.
@@ -260,41 +276,41 @@ class SafaaAgent:
 
         # Determine the configuration file path
         cfg_path = config_path or CONFIGS_DIR
-        config_file_path = os.path.join(cfg_path, 'train.cfg')
+        config_file_path = os.path.join(cfg_path, "train.cfg")
 
         # Read the configuration file
-        with open(config_file_path, 'r', encoding='utf-8') as file:
+        with open(config_file_path, "r", encoding="utf-8") as file:
             cfg_contents = file.read()
 
         # Update the training and development data paths in the configuration
         # contents
         updated_cfg_contents = re.sub(
-            r'train\s*=\s*".*"', f'train = "{train_path}"',
-            re.sub(r'dev\s*=\s*".*"', f'dev = "{dev_path}"', cfg_contents)
+            r'train\s*=\s*".*"',
+            f'train = "{train_path}"',
+            re.sub(r'dev\s*=\s*".*"', f'dev = "{dev_path}"', cfg_contents),
         )
 
         # Write the updated configuration to a temporary file
-        tmp_cfg_path = os.path.join(cfg_path, 'tmp.cfg')
-        with open(tmp_cfg_path, 'w', encoding='utf-8') as file:
+        tmp_cfg_path = os.path.join(cfg_path, "tmp.cfg")
+        with open(tmp_cfg_path, "w", encoding="utf-8") as file:
             file.write(updated_cfg_contents)
 
         # Determine the model directory paths
-        tmp_model_path = os.path.join(LOCAL_MODEL_DIR, 'tmp')
-        new_model_dir = 'declutter_model' if declutter_model else \
-            'entity_recognizer'
+        tmp_model_path = os.path.join(LOCAL_MODEL_DIR, "tmp")
+        new_model_dir = "declutter_model" if declutter_model else "entity_recognizer"
         new_model_path = os.path.join(LOCAL_MODEL_DIR, new_model_dir)
 
         # Create the new model directory if it doesn't exist
         os.makedirs(new_model_path, exist_ok=True)
 
         # Construct the training command and execute it
-        train_command = (f"python -m spacy train '{tmp_cfg_path}' "
-                         f"--output '{tmp_model_path}'")
+        train_command = (
+            f"python -m spacy train '{tmp_cfg_path}' " f"--output '{tmp_model_path}'"
+        )
         os.system(train_command)
 
         # Move the trained model files to the new model directory
-        self._move_files(os.path.join(tmp_model_path, 'model-best'),
-                         new_model_path)
+        self._move_files(os.path.join(tmp_model_path, "model-best"), new_model_path)
 
         # Clean up the temporary files and directories
         os.remove(tmp_cfg_path)
@@ -331,22 +347,25 @@ class SafaaAgent:
         """
 
         # Determine the directory path to save the models and vectorizer
-        save_path = path or '/home/fossy/Safaa'
+        save_path = path or "/home/fossy/Safaa"
 
         # Create the directory if it does not exist
         os.makedirs(save_path, exist_ok=True)
 
         # Check directory permissions
         if not os.access(path, os.W_OK):
-            print("Write permissions are not granted for the directory: "
-                  f"{save_path}")
+            print(
+                "Write permissions are not granted for the directory: " f"{save_path}"
+            )
             return
 
         # Construct the full paths for the model and vectorizer files
-        false_positive_detector_path = os.path.join(save_path,
-                                                    'false_positive_detection_model.pkl')
-        vectorizer_path = os.path.join(save_path,
-                                       'false_positive_detection_vectorizer.pkl')
+        false_positive_detector_path = os.path.join(
+            save_path, "false_positive_detection_model_sgd.pkl"
+        )
+        vectorizer_path = os.path.join(
+            save_path, "false_positive_detection_vectorizer.pkl"
+        )
 
         # Save the false positive detector model and vectorizer to the specified
         # paths
