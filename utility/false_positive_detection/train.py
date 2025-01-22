@@ -5,7 +5,7 @@
 from argparse import ArgumentParser
 
 import pandas as pd
-
+import os
 from safaa.Safaa import *
 
 
@@ -19,30 +19,17 @@ def main():
 
     # Read the CSV file using Pandas
     try:
-        data = pd.read_csv(args.csv_file_path)
-        print(f"Successfully read the CSV file from: {args.csv_file_path}")
+        data = pd.read_csv(args.csv_file)
+        print(f"Successfully read the CSV file from: {args.csv_file}")
     except FileNotFoundError:
-        print(f"CSV file not found at: {args.csv_file_path}")
-        return
-
-    # Check if the Safaa package is installed in the fossy user pythondeps
-    # Simply check if a directory containing Safaa is inside
-    # /home/fossy/pythondeps
-    dirs = os.listdir('/home/fossy/pythondeps')
-    dirs = [d for d in dirs if 'Safaa' in d]
-
-    if len(dirs) == 0:
-        print("""
-        The Safaa package is not installed in the fossy user pythondeps. 
-        Please install by running the post-install script with the --python-experimental flag""")
+        print(f"CSV file not found at: {args.csv_file}")
         return
 
     agent = SafaaAgent()
-
-    agent.train_false_positive_detector_model(data['text'].to_list(),
-                                              data['label'].to_list())
-
-    agent.save()
+    save_path_initial = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "Safaa/src/safaa/models/")
+    agent.train_false_positive_detector_model(data['copyright'].to_list(),
+                                              data["falsePositive"].to_list())
+    agent.save(path=save_path_initial)
 
 
 if __name__ == "__main__":
