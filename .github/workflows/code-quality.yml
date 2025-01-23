@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: © 2021 Siemens AG
+# SPDX-FileCopyrightText: © Kaushlendra Pratap Singh <kaushlendra-pratap.singh@siemens.com>
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+name: Code Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Run flake8
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+
+      - name: Install flake8
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install flake8
+
+      - name: Run flake8
+        run: |
+          flake8 --max-line-length=120 .
+        working-directory: ./Safaa

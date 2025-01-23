@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: © 2025 Siemens AG
+# SPDX-FileCopyrightText: © Kaushlendra Pratap Singh <kaushlendra-pratap.singh@siemens.com>
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+
+name: Compatibility Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ## Allowed Python versions https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md#python
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python3 -m ensurepip --upgrade
+          python3 -m pip install --upgrade pip setuptools wheel
+          python3 setup.py install
+        working-directory: ./Safaa
