@@ -7,37 +7,44 @@ from setuptools import setup, find_packages
 
 here = path.dirname(path.abspath(path.dirname(__file__)))
 # fetch the long description from the README.md
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name='safaa',
-    version='0.0.1',
-    url='https://github.com/fossology/safaa',
-    author='Abdelrahman Jamal',
-    author_email='abdelrahmanjamal5565@gmail.com',
+    name="safaa",
+    version="0.0.1",
+    url="https://github.com/fossology/safaa",
+    author="Abdelrahman Jamal",
+    author_email="abdelrahmanjamal5565@gmail.com",
     description="""Created as a part of the 2023 Google Summer of Code project:
      Reducing Fossology\'s False Positive Copyrights, the purpose is to be able
      to predict whether a given copyright output from the Fossology software
      is a false positive or not. It is also able to remove extra
      text from a copyright notice.""",
     long_description=long_description,
-    long_description_content_type='text/markdown',
-    packages=find_packages(where='src', ),
+    long_description_content_type="text/markdown",
+    packages=find_packages(
+        where="src",
+    ),
     package_dir={"": "src"},
     install_requires=[
-        'spacy>=3.0.0',
-        'joblib>=1.0.0',
-        'pandas>=1.1.0',
-        'scikit-learn>=1.3.0',
+        "spacy==3.8.4",
+        "joblib==1.2.0",
+        "pandas==2.2.3",
+        "scikit-learn==1.6.1",
     ],
     classifiers=[
-        'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)',
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
     ],
     include_package_data=True,
     include_dirs=[],
-    package_data={'': ['src/safaa/models/*.pkl', 'src/safaa/models/*.',
-                       'src/safaa/configs/*']},
-    python_requires='>=3.6',
+    package_data={
+        "": [
+            "src/safaa/models/*.pkl",
+            "src/safaa/models/*.",
+            "src/safaa/configs/*",
+        ]
+    },
+    python_requires=">=3.6",
 )
