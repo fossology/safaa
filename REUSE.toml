@@ -1,0 +1,13 @@
+version = 1
+
+[[annotations]]
+path = ["Safaa/src/safaa/models/declutter_model/**", "Safaa/src/safaa/models/entity_recognizer/**", "datasets/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "© 2023 abdelrahmanjamal5565@gmail.com, Fossology contributors"
+SPDX-License-Identifier = "LGPL-2.1-only"
+
+[[annotations]]
+path = "Safaa/src/safaa/models/*.pkl"
+precedence = "override"
+SPDX-FileCopyrightText = "© 2023 abdelrahmanjamal5565@gmail.com, Fossology contributors"
+SPDX-License-Identifier = "LGPL-2.1-only"
