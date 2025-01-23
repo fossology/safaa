@@ -12,7 +12,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="safaa",
-    version="0.0.1",
+    version="0.0.2",
     url="https://github.com/fossology/safaa",
     author="Abdelrahman Jamal",
     author_email="abdelrahmanjamal5565@gmail.com",
