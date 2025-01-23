@@ -47,7 +47,9 @@ class SafaaAgent:
         self.vectorizer_path = os.path.join(
             model_dir, "false_positive_detection_vectorizer.pkl"
         )
-        self.entity_recognizer_path = os.path.join(model_dir, "entity_recognizer")
+        self.entity_recognizer_path = os.path.join(
+            model_dir, "entity_recognizer"
+        )
         self.declutter_model_path = os.path.join(model_dir, "declutter_model")
 
         # Load the models from the constructed file paths
@@ -172,14 +174,24 @@ class SafaaAgent:
             (r"\(c\)", " COPYRIGHTSYMBOL "),
             (r"\(C\)", " COPYRIGHTSYMBOL "),
             (
-                r"""(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])""",
+                r"""(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"
+                (?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|
+                \\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@
+                (?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]
+                (?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|
+                1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|
+                1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(
+                [\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|
+                \\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])""",
                 " EMAIL ",
             ),
             (r"[^a-zA-Z0-9]", " "),
         ]
         # Perform the substitutions for each pattern in the list
         for pattern, replacement in subs:
-            data = [re.sub(pattern, replacement, sentence) for sentence in data]
+            data = [
+                re.sub(pattern, replacement, sentence) for sentence in data
+            ]
         # Convert text to lowercase and strip extra whitespace
         return [sentence.lower().strip() for sentence in data]
 
@@ -209,7 +221,8 @@ class SafaaAgent:
             # Classify based on the given threshold. If the threshhold is not
             # met, automatically sets the prediction to true
             return [
-                "f" if prediction[1] >= threshold else "t" for prediction in predictions
+                "f" if prediction[1] >= threshold else "t"
+                for prediction in predictions
             ]
 
         # Get binary predictions from the model if probability prediction is not
@@ -239,7 +252,9 @@ class SafaaAgent:
             (
                 ""
                 if prediction == "f"
-                else " ".join([ent.text for ent in self.declutter_model(sentence).ents])
+                else " ".join(
+                    [ent.text for ent in self.declutter_model(sentence).ents]
+                )
             )
             for sentence, prediction in zip(data, predictions)
         ]
@@ -297,7 +312,9 @@ class SafaaAgent:
 
         # Determine the model directory paths
         tmp_model_path = os.path.join(LOCAL_MODEL_DIR, "tmp")
-        new_model_dir = "declutter_model" if declutter_model else "entity_recognizer"
+        new_model_dir = (
+            "declutter_model" if declutter_model else "entity_recognizer"
+        )
         new_model_path = os.path.join(LOCAL_MODEL_DIR, new_model_dir)
 
         # Create the new model directory if it doesn't exist
@@ -305,12 +322,15 @@ class SafaaAgent:
 
         # Construct the training command and execute it
         train_command = (
-            f"python -m spacy train '{tmp_cfg_path}' " f"--output '{tmp_model_path}'"
+            f"python -m spacy train '{tmp_cfg_path}' "
+            f"--output '{tmp_model_path}'"
         )
         os.system(train_command)
 
         # Move the trained model files to the new model directory
-        self._move_files(os.path.join(tmp_model_path, "model-best"), new_model_path)
+        self._move_files(
+            os.path.join(tmp_model_path, "model-best"), new_model_path
+        )
 
         # Clean up the temporary files and directories
         os.remove(tmp_cfg_path)
@@ -355,7 +375,8 @@ class SafaaAgent:
         # Check directory permissions
         if not os.access(path, os.W_OK):
             print(
-                "Write permissions are not granted for the directory: " f"{save_path}"
+                "Write permissions are not granted for the directory: "
+                f"{save_path}"
             )
             return
 

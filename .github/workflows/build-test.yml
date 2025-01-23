@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: © 2025 Siemens AG
+# SPDX-FileCopyrightText: © Kaushlendra Pratap Singh <kaushlendra-pratap.singh@siemens.com>
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+
+name: Build Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install build tools
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install setuptools wheel
+
+      - name: Build package
+        run: |
+          python3 setup.py sdist bdist_wheel
+        working-directory: ./Safaa
+
