@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: © 2025 Siemens AG
+# SPDX-FileContributor: Gaurav Mishra <mishra.gaurav@siemens.com>
+
+# SPDX-License-Identifier: LGPL-2.1-only
+
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/Safaa"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
