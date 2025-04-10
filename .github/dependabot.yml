@@ -9,6 +9,10 @@ updates:
     directory: "/Safaa"
     schedule:
       interval: "weekly"
+    reviewers:
+      - "Kaushl2208"
+    assignees:
+      - "Kaushl2208"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
