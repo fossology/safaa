@@ -5,6 +5,13 @@ SPDX-License-Identifier: LGPL-2.1-only
 -->
 # Safaa
 
+[![Python Versions](https://img.shields.io/pypi/pyversions/safaa?logo=python)](https://pypi.org/project/safaa/)
+[![PyPI Version](https://img.shields.io/pypi/v/safaa?logo=pypi)](https://pypi.org/project/safaa/)
+[![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](https://github.com/fossology/safaa/blob/main/LICENSE)
+[![Code Quality](https://github.com/fossology/safaa/actions/workflows/code-quality.yml/badge.svg)](https://github.com/fossology/safaa/actions/workflows/code-quality.yml)
+[![Build Tests](https://github.com/fossology/safaa/actions/workflows/build-test.yml/badge.svg)](https://github.com/fossology/safaa/actions/workflows/build-test.yml)
+[![Slack Channel](https://img.shields.io/badge/slack-fossology-blue.svg?longCache=true&logo=slack)](https://join.slack.com/t/fossology/shared_invite/enQtNzI0OTEzMTk0MjYzLTYyZWQxNDc0N2JiZGU2YmI3YmI1NjE4NDVjOGYxMTVjNGY3Y2MzZmM1OGZmMWI5NTRjMzJlNjExZGU2N2I5NGY)
+
 Safaa is a Python package designed for handling false positive detection in copyright notices.
 Additionally, it can declutter copyright notices, removing unnecessary extra text.
 
