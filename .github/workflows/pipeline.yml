@@ -1,0 +1,25 @@
+name: Pipeline Script
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-preprocessing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r Safaa/src/safaa/pipeline_dir/requirements.txt
+
+      - name: Run preprocessing script
+        run: |
+          python Safaa/src/safaa/pipeline_dir/preprocessing_script.py
