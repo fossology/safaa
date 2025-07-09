@@ -18,8 +18,36 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r Safaa/src/safaa/pipeline_dir/requirements.txt
+          pip install -r requirements.txt
 
       - name: Run preprocessing script
         run: |
           python Safaa/src/safaa/pipeline_dir/preprocessing_script.py
+
+      - name: Split Data
+        run: |
+          python Safaa/src/safaa/pipeline_dir/data_split.py
+
+      - name: Declutter content
+        run: |
+          python Safaa/src/safaa/pipeline_dir/declutter_script.py
+
+      - name: Upload cleaned output
+        uses: actions/upload-artifact@v4
+        with:
+          name: preprocessed-data
+          path: Safaa/src/safaa/pipeline_dir/data/preprocessed_copyrights.csv
+
+      - name: Upload Split Data
+        uses: actions/upload-artifact@v4
+        with:
+          name: split-data
+          path: |
+            Safaa/src/safaa/pipeline_dir/data/train_set.csv
+            Safaa/src/safaa/pipeline_dir/data/test_set.csv
+
+      - name: Upload Decluttered Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: decluttered-data
+          path: Safaa/src/safaa/pipeline_dir/data/decluttered_copyrights.csv
