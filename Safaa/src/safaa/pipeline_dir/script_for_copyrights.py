@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: CC-BY-SA-4.0
 # SPDX-FileCopyrightText: 2025 Abdulsobur Oyewale
-# -*- coding: utf-8 -*-
 
 import os
 from dotenv import load_dotenv
@@ -87,7 +86,7 @@ def fetch_copyright_data():
             df = pd.DataFrame(results)
 
         timestamp = datetime.now().strftime("%m_%d_%Y")
-        default_filename = f"copyrights_{timestamp}.csv"
+        default_filename = f"data/copyrights_{timestamp}.csv"
         output_path = args.output or default_filename
         df.to_csv(output_path, index=False)
 
