@@ -1,13 +1,17 @@
 name: Pipeline Script
 
 on:
+  push:
+    branches: [testing]
+  pull_request:
+    branches: [testing]
   workflow_dispatch:
 
 jobs:
   safaa-model-retraining:
     runs-on: ubuntu-latest
     env:
-      BASE_PATH: Safaa/src/safaa/pipeline_dir/
+      BASE_PATH: utility/retraining
 #      SAFAA_SECRET: ${{ secrets.MY_SECRET }}
 
     steps:
@@ -19,37 +23,31 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Set PYTHONPATH for future steps
+        run: echo "PYTHONPATH=$(pwd)/Safaa/src" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r $BASE_PATH/requirements.txt
 
-#      - name: Fetch Copyright Content from server
+#      - name: Create .env file
+#        run: |
+#          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+#          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+#          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+#          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+#          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+
+#      - name: Fetch Copyright content from server
 #        run: |
 #          python $BASE_PATH/script_for_copyrights.py
 
-      - name: Run utility script
+      - name: Run utility script (preprocess, declutter, split)
         run: |
-          python $BASE_PATH/utility_script.py
+          export PYTHONPATH=$(pwd)/Safaa/src
+          python $BASE_PATH/utility_scripts.py
 
-      - name: Set artifact suffix
-        run: echo "ARTIFACT_SUFFIX=$(date +%Y%m%d)_${{ github.sha }}" >> $GITHUB_ENV
+      - name: Show final output files (for confirmation/logging)
+        run: |
+          ls -lh $BASE_PATH/data/
 
-      - name: Upload cleaned output
-        uses: actions/upload-artifact@v4
-        with:
-          name: preprocessed-data-${{ env.ARTIFACT_SUFFIX }}
-          path: ${{ env.BASE_PATH }}/data/preprocessed_copyrights.csv
-
-      - name: Upload Decluttered Output
-        uses: actions/upload-artifact@v4
-        with:
-          name: decluttered-data-${{ env.ARTIFACT_SUFFIX }}
-          path: ${{ env.BASE_PATH }}/data/decluttered_copyrights.csv
-
-      - name: Upload Split Data
-        uses: actions/upload-artifact@v4
-        with:
-          name: split-data-${{ env.ARTIFACT_SUFFIX }}
-          path: |
-            ${{ env.BASE_PATH }}/data/train_data.csv
-            ${{ env.BASE_PATH }}/data/test_data.csv
