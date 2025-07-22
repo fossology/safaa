@@ -1,10 +1,10 @@
-name: Pipeline Script
+name: Safaa Model retraining
 
 on:
-  push:
-    branches: [testing]
-  pull_request:
-    branches: [testing]
+#  push:
+#    branches: [testing]
+#  pull_request:
+#    branches: [testing]
   workflow_dispatch:
 
 jobs:
