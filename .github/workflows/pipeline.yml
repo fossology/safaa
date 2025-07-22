@@ -29,7 +29,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r $BASE_PATH/requirements.txt
-
 #      - name: Create .env file
 #        run: |
 #          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
@@ -46,8 +45,6 @@ jobs:
         run: |
           export PYTHONPATH=$(pwd)/Safaa/src
           python $BASE_PATH/utility_scripts.py
-
       - name: Show final output files (for confirmation/logging)
         run: |
           ls -lh $BASE_PATH/data/
-
