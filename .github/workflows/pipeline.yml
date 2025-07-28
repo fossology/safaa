@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASE_PATH: utility/retraining
+      PYTHONPATH: ${{ github.workspace }}/Safaa/src
 #      SAFAA_SECRET: ${{ secrets.MY_SECRET }}
 
     steps:
@@ -23,12 +24,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Set PYTHONPATH for future steps
-        run: echo "PYTHONPATH=$(pwd)/Safaa/src" >> $GITHUB_ENV
-
       - name: Install dependencies
         run: |
-          pip install -r $BASE_PATH/requirements.txt
+          pip install "spacy~=3.8.7" \
+                      "pandas~=2.2.3" \
+                      "psycopg2~=2.9.10" \
+                      "python-dotenv~=1.1.0" \
+                      "scikit-learn~=1.7.0"
+
+#      - name: Install dependencies
+#        run: |
+#          pip install -r $BASE_PATH/requirements.txt
 #      - name: Create .env file
 #        run: |
 #          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
@@ -41,10 +47,13 @@ jobs:
 #        run: |
 #          python $BASE_PATH/script_for_copyrights.py
 
-      - name: Run utility script (preprocess, declutter, split)
+      - name: Run utility steps
         run: |
-          export PYTHONPATH=$(pwd)/Safaa/src
-          python $BASE_PATH/utility_scripts.py
+          python $BASE_PATH/utility_scripts.py --preprocess
+          python $BASE_PATH/utility_scripts.py --declutter
+          python $BASE_PATH/utility_scripts.py --split
+
+
       - name: Show final output files (for confirmation/logging)
         run: |
           ls -lh $BASE_PATH/data/

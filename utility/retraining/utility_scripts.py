@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from safaa.Safaa import SafaaAgent
 import os
 import glob
+import argparse
 
 
 def load_data(filepath: str) -> pd.DataFrame:
@@ -39,40 +40,36 @@ def find_latest_copyright_file(data_dir: str):
     return latest
 
 
-def main():
-    base_path = os.path.dirname(__file__)
-    data_dir = os.path.join(base_path, "data")
-
-    agent = SafaaAgent()
-
-    # Preprocessing
-    latest_file = find_latest_copyright_file(data_dir)
-    raw_df = load_data(latest_file)
-    raw_data = raw_df['original_content']
-    preprocessed_df = preprocess_data(agent, raw_data)
-    prep_data_path = os.path.join(data_dir, "preprocessed_copyrights.csv")
-    save_to_csv(preprocessed_df, prep_data_path)
-
-    print("✅ Preprocessing completed")
-
-    # Decluttering
-    df = load_data(os.path.join(data_dir, "preprocessed_copyrights.csv"))
-    data = df['original_content']
-    decluttered_df = declutter_data(agent, data)
-    decl_data_path = os.path.join(data_dir, "decluttered_copyrights.csv")
-    save_to_csv(decluttered_df, decl_data_path)
-
-    print("✅ Decluttering completed")
-
-    # Data Split
-    train_df, test_df = split_data(df)
-    train_data_path = os.path.join(data_dir, "train_data.csv")
-    test_data_path = os.path.join(data_dir, "test_data.csv")
-    save_to_csv(train_df, train_data_path)
-    save_to_csv(test_df, test_data_path)
-
-    print("✅ Split complete: train_data.csv and test_data.csv created.")
-
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--preprocess', action='store_true')
+    parser.add_argument('--declutter', action='store_true')
+    parser.add_argument('--split', action='store_true')
+    args = parser.parse_args()
+
+    base_path = os.path.dirname(__file__)
+    data_dir = os.path.join(base_path, "data")
+    agent = SafaaAgent()
+
+    if args.preprocess:
+        latest_file = find_latest_copyright_file(data_dir)
+        raw_df = load_data(latest_file)
+        raw_data = raw_df['original_content']
+        preprocessed_df = preprocess_data(agent, raw_data)
+        save_to_csv(preprocessed_df, os.path.join(data_dir, "preprocessed_copyrights.csv"))
+        print("✅ Preprocessing completed")
+
+    if args.declutter:
+        df = load_data(os.path.join(data_dir, "preprocessed_copyrights.csv"))
+        data = df['original_content']
+        decluttered_df = declutter_data(agent, data)
+        save_to_csv(decluttered_df, os.path.join(data_dir, "decluttered_copyrights.csv"))
+        print("✅ Decluttering completed")
+
+    if args.split:
+        df = load_data(os.path.join(data_dir, "preprocessed_copyrights.csv"))
+        train_df, test_df = split_data(df)
+        save_to_csv(train_df, os.path.join(data_dir, "train_data.csv"))
+        save_to_csv(test_df, os.path.join(data_dir, "test_data.csv"))
+        print("✅ Split complete: train_data.csv and test_data.csv created.")
