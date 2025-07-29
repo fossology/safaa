@@ -3,8 +3,7 @@
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
-# from safaa.Safaa import SafaaAgent
-from Safaa.src.safaa.Safaa import SafaaAgent
+from safaa.Safaa import SafaaAgent
 import os
 import glob
 import argparse
@@ -81,5 +80,6 @@ if __name__ == '__main__':
         dataset_path = os.path.abspath(train_data_path)
         data = pd.read_csv(dataset_path)
         agent.train_false_positive_detector_model(data["copyright"], data["falsePositive"])
-        agent.save('model/')
+        model_dir = os.path.join(base_path, 'model')
+        agent.save(model_dir)
         print("✅ Training completed and model saved.")
