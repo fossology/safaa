@@ -52,8 +52,10 @@ jobs:
           python $BASE_PATH/utility_scripts.py --preprocess
           python $BASE_PATH/utility_scripts.py --declutter
           python $BASE_PATH/utility_scripts.py --split
+          python $BASE_PATH/utility_scripts.py --train
 
 
       - name: Show final output files (for confirmation/logging)
         run: |
           ls -lh $BASE_PATH/data/
+          ls -lh $BASE_PATH/model/
