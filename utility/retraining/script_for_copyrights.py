@@ -38,6 +38,7 @@ sql_template = """
         INNER JOIN uploadtree UT ON C.pfile_fk = UT.pfile_fk
         LEFT JOIN copyright_event CE ON CE.copyright_fk = C.copyright_pk
             AND CE.uploadtree_fk = UT.uploadtree_pk
+        AND ut.uploadtee_fk NOT IN (SELECT uploadtree_fk from clearing_decision WHERE decision_type=4)
         WHERE C.content IS NOT NULL
             AND C.content != ''
         ORDER BY C.copyright_pk, UT.uploadtree_pk, C.content, CE.content DESC
