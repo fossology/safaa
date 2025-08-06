@@ -32,9 +32,6 @@ jobs:
                       "python-dotenv~=1.1.0" \
                       "scikit-learn~=1.7.0"
 
-#      - name: Install dependencies
-#        run: |
-#          pip install -r $BASE_PATH/requirements.txt
 #      - name: Create .env file
 #        run: |
 #          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
