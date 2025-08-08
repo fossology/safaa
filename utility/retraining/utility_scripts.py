@@ -2,10 +2,10 @@
 # SPDX-FileCopyrightText: 2025 Abdulsobur Oyewale
 
 import pandas as pd
-from joblib import load, dump
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score
 from safaa.Safaa import SafaaAgent
+# from Safaa.src.safaa.Safaa import SafaaAgent
 import os
 import glob
 import argparse
@@ -15,15 +15,15 @@ def load_data(filepath: str) -> pd.DataFrame:
     return pd.read_csv(filepath)
 
 
-def declutter_data(agent: SafaaAgent, data: pd.Series) -> pd.DataFrame:
+def declutter_data(agent: SafaaAgent, data: pd.Series) -> pd.Series:
     predictions = ["f"] * len(data)
     decluttered = agent.declutter(data, predictions)
-    return pd.DataFrame({'original_content': data, 'decluttered_content': decluttered})
+    return pd.Series(decluttered, index=data.index)
 
 
-def preprocess_data(agent: SafaaAgent, data: pd.Series) -> pd.DataFrame:
+def preprocess_data(agent: SafaaAgent, data: pd.Series) -> pd.Series:
     preprocessed = agent.preprocess_data(data)
-    return pd.DataFrame({'original_content': data, 'preprocessed_content': preprocessed})
+    return pd.Series(preprocessed, index=data.index)
 
 
 def split_data(df: pd.DataFrame, test_size=0.2, random_state=42):
@@ -59,28 +59,18 @@ if __name__ == '__main__':
     if args.preprocess:
         latest_file = find_latest_copyright_file(data_dir)
         raw_df = load_data(latest_file)
-        raw_data = raw_df['original_content']
-        preprocessed_df = preprocess_data(agent, raw_data)
-        save_to_csv(preprocessed_df, os.path.join(data_dir, "preprocessed_copyrights.csv"))
+        raw_df['copyright'] = preprocess_data(agent, raw_df['copyright'])
+        save_to_csv(raw_df, os.path.join(data_dir, "preprocessed_copyrights.csv"))
         print("✅ Preprocessing completed")
 
     if args.declutter:
         df = load_data(os.path.join(data_dir, "preprocessed_copyrights.csv"))
-        data = df['original_content']
-        decluttered_df = declutter_data(agent, data)
-        save_to_csv(decluttered_df, os.path.join(data_dir, "decluttered_copyrights.csv"))
+        df['copyright'] = declutter_data(agent, df['copyright'])
+        save_to_csv(df, os.path.join(data_dir, "decluttered_copyrights.csv"))
         print("✅ Decluttering completed")
 
     if args.split:
-        # For the pipeline preprocessed data
-        # df = load_data(os.path.join(data_dir, "preprocessed_copyrights.csv"))
-
-        # For the available data in fossology
-        train_data_path = os.path.join(base_path, '..', '..', 'datasets', 'false_positive_detection_dataset.csv')
-        dataset_path = os.path.abspath(train_data_path)
-        df = pd.read_csv(dataset_path)
-
-
+        df = load_data(os.path.join(data_dir, "preprocessed_copyrights.csv"))
         train_df, test_df = split_data(df)
         save_to_csv(train_df, os.path.join(data_dir, "train_data.csv"))
         save_to_csv(test_df, os.path.join(data_dir, "test_data.csv"))
@@ -90,19 +80,15 @@ if __name__ == '__main__':
         data = load_data(os.path.join(data_dir, "train_data.csv"))
         agent.train_false_positive_detector_model(data["copyright"], data["falsePositive"])
         model_dir = os.path.join(base_path, 'model')
-        # agent.save("/home/fossy/Safaa")
         agent.save(model_dir)
         print("✅ Training completed and model saved.")
-
 
     if args.test:
         test_data = load_data(os.path.join(data_dir, "test_data.csv"))
         X_test = test_data["copyright"]
-
         y_true = test_data["falsePositive"].map(lambda x: "f" if x in (1, True) else "t")
 
         agent = SafaaAgent(use_local_model=False, model_dir=os.path.join(base_path, 'model'))
-
         y_pred = agent.predict(X_test)
 
         accuracy = accuracy_score(y_true, y_pred)
