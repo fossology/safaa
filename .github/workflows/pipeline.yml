@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,6 +34,9 @@ jobs:
                       "python-dotenv~=1.1.0" \
                       "scikit-learn~=1.7.0"
 
+#      - name: Install dependencies
+#        run: |
+#          pip install -r $BASE_PATH/requirements.txt
 #      - name: Create .env file
 #        run: |
 #          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
@@ -50,9 +55,51 @@ jobs:
           python $BASE_PATH/utility_scripts.py --declutter
           python $BASE_PATH/utility_scripts.py --split
           python $BASE_PATH/utility_scripts.py --train
-          python $BASE_PATH/utility_scripts.py --train
+          python $BASE_PATH/utility_scripts.py --test | tee test_metrics.txt
 
-      - name: Show final output files (for confirmation/logging)
+      - name: Extract metrics
+        id: metrics
         run: |
-          ls -lh $BASE_PATH/data/
-          ls -lh $BASE_PATH/model/
+          echo "accuracy=$(grep "Accuracy" test_metrics.txt | awk '{print $3}')" >> $GITHUB_OUTPUT
+          echo "precision=$(grep "Precision" test_metrics.txt | awk '{print $3}')" >> $GITHUB_OUTPUT
+          echo "recall=$(grep "Recall" test_metrics.txt | awk '{print $3}')" >> $GITHUB_OUTPUT
+          echo "f1=$(grep "F1 Score" test_metrics.txt | awk '{print $4}')" >> $GITHUB_OUTPUT
+
+      - name: Upload trained model artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: safaa-trained-model
+          path: ${{ env.BASE_PATH }}/model
+
+      - name: Move retrained model to original path
+        run: |
+          ORIGINAL_PATH="Safaa/src/safaa/models"
+          mkdir -p "$ORIGINAL_PATH"
+          cp $BASE_PATH/model/false_positive_detection_vectorizer.pkl Safaa/src/safaa/models/
+          cp $BASE_PATH/model/false_positive_detection_model_sgd.pkl Safaa/src/safaa/models/
+
+      - name: Set branch name
+        id: vars
+        run: echo "branch_name=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: retrained-model-${{ steps.vars.outputs.branch_name }}
+          commit-message: "Update retrained Safaa model"
+          add-paths: |
+            Safaa/src/safaa/models/false_positive_detection_vectorizer.pkl
+            Safaa/src/safaa/models/false_positive_detection_model_sgd.pkl
+          title: "Retrained model - Accuracy ${{ steps.metrics.outputs.accuracy }}, F1 ${{ steps.metrics.outputs.f1 }}"
+          body: |
+            This PR contains the newly retrained Safaa model.
+
+            **Test results:**
+            - Accuracy: ${{ steps.metrics.outputs.accuracy }}
+            - Precision: ${{ steps.metrics.outputs.precision }}
+            - Recall: ${{ steps.metrics.outputs.recall }}
+            - F1 Score: ${{ steps.metrics.outputs.f1 }}
+
+            The trained model is also available as a downloadable artifact from the workflow run.
+          base: main
