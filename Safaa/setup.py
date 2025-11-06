@@ -12,10 +12,16 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="safaa",
-    version="0.0.2",
+    version="0.0.3",
     url="https://github.com/fossology/safaa",
     author="Abdelrahman Jamal",
     author_email="abdelrahmanjamal5565@gmail.com",
+    maintainer=["Kaushlendra Pratap", "Gaurav Mishra"],
+    maintainer_email=[
+        "kaushlendra-pratap.singh@siemens.com",
+        "mishra.gaurav@siemens.com",
+        "fossology-devel@fossology.org",
+    ],
     description="""Created as a part of the 2023 Google Summer of Code project:
      Reducing Fossology\'s False Positive Copyrights, the purpose is to be able
      to predict whether a given copyright output from the Fossology software
