@@ -1,0 +1,76 @@
+name: Fetch, Train and Release Model
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Maximum number of rows to fetch'
+        required: false
+        default: '1000'
+      start_date:
+        description: 'Start date (YYYY-MM-DD)'
+        required: true
+        default: '2025-01-01'
+      end_date:
+        description: 'End date (YYYY-MM-DD)'
+        required: true
+        default: '2025-10-31'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fetch-and-train:
+    runs-on: ubuntu-latest
+    env:
+      # DB secrets must be set in repository secrets
+      DB_NAME: ${{ secrets.DB_NAME }}
+      HOST: ${{ secrets.HOST }}
+      PORT: ${{ secrets.PORT }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Install the package and development extras (no separate requirements.txt needed)
+          pip install ".[dev]"
+
+      - name: Run data fetch
+        id: fetch
+        run: |
+          python scripts/fetch_copyrights.py --limit ${{ inputs.limit }} --start-date ${{ inputs.start_date }} --end-date ${{ inputs.end_date }} --output copyrights.csv --query-string "$(cat ./scripts/query_placeholder.sql 2>/dev/null || echo '')"
+        env:
+          DB_NAME: ${{ secrets.DB_NAME }}
+          HOST: ${{ secrets.HOST }}
+          PORT: ${{ secrets.PORT }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: copyrights-csv
+          path: copyrights.csv
+
+      - name: Download CSV artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: copyrights-csv
+
+      - name: Train model and create PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: |
+          python scripts/train_and_release.py --csv copyrights.csv --model-path models/false_positive_detector.pkl

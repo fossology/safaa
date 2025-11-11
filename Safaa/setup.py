@@ -39,6 +39,12 @@ setup(
         "pandas==2.3.1",
         "scikit-learn==1.6.1",
     ],
+    extras_require={
+        "dev": [
+            "psycopg2-binary>=2.9",
+            "requests>=2.28",
+        ],
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
