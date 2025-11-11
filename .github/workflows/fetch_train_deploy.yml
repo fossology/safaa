@@ -1,0 +1,99 @@
+# SPDX-FileCopyrightText: © 2026 Siemens AG
+# SPDX-FileContributor: Kaushlendra Pratap Singh <kaushlendra-pratap.singh@siemens.com>
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+
+name: Train and Release Model
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'datasets/**.csv'
+  workflow_dispatch:
+    inputs:
+      csv_path:
+        description: 'Path to the training CSV (relative to repo root)'
+        required: true
+        default: 'datasets/false_positive_detection_dataset.csv'
+      min_f1:
+        description: 'Minimum F1 score required (quality gate)'
+        required: false
+        default: '0.7'
+      text_col:
+        description: 'CSV column name for copyright text'
+        required: false
+        default: 'text'
+      label_col:
+        description: 'CSV column name for binary label (0/1)'
+        required: false
+        default: 'label'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  train-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'poetry'
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Detect new CSV (push trigger)
+        id: detect-csv
+        if: github.event_name == 'push'
+        run: |
+          CSV_FILE=$(git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }} -- 'datasets/**.csv' | head -1)
+          if [ -z "$CSV_FILE" ]; then
+            echo "No new CSV detected in datasets/. Skipping."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "csv=$CSV_FILE" >> $GITHUB_OUTPUT
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "Detected new CSV: $CSV_FILE"
+          fi
+
+      - name: Resolve parameters
+        id: params
+        if: steps.detect-csv.outputs.skip != 'true'
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "csv=${{ inputs.csv_path }}" >> $GITHUB_OUTPUT
+            echo "min_f1=${{ inputs.min_f1 }}" >> $GITHUB_OUTPUT
+            echo "text_col=${{ inputs.text_col }}" >> $GITHUB_OUTPUT
+            echo "label_col=${{ inputs.label_col }}" >> $GITHUB_OUTPUT
+          else
+            echo "csv=${{ steps.detect-csv.outputs.csv }}" >> $GITHUB_OUTPUT
+            echo "min_f1=0.7" >> $GITHUB_OUTPUT
+            echo "text_col=text" >> $GITHUB_OUTPUT
+            echo "label_col=label" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Train model
+        if: steps.detect-csv.outputs.skip != 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: |
+          poetry run python scripts/train_and_release.py \
+            --csv "${{ steps.params.outputs.csv }}" \
+            --text-col "${{ steps.params.outputs.text_col }}" \
+            --label-col "${{ steps.params.outputs.label_col }}" \
+            --min-f1 "${{ steps.params.outputs.min_f1 }}"
