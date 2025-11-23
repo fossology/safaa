@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: LGPL-2.1-only
 
 from argparse import ArgumentParser
-
+import os
 import pandas as pd
 from sklearn.metrics import classification_report
 
@@ -20,23 +20,23 @@ def main():
 
     # Read the CSV file using Pandas
     try:
-        data = pd.read_csv(args.csv_file_path)
-        print(f"Successfully read the CSV file from: {args.csv_file_path}")
+        data = pd.read_csv(args.csv_file)
+        print(f"Successfully read the CSV file from: {args.csv_file}")
     except FileNotFoundError:
-        print(f"CSV file not found at: {args.csv_file_path}")
+        print(f"CSV file not found at: {args.csv_file}")
         return
 
     # Check if the Safaa package is installed in the fossy user pythondeps
     # Simply check if a directory containing Safaa is inside
     # /home/fossy/pythondeps
-    dirs = os.listdir('/home/fossy/pythondeps')
-    dirs = [d for d in dirs if 'Safaa' in d]
-
-    if len(dirs) == 0:
-        print("""
-        The Safaa package is not installed in the fossy user pythondeps.
-        Please install by running the post-install script with the --python-experimental flag""")
-        return
+    try:
+        dirs = os.listdir('/home/fossy/pythondeps')
+        dirs = [d for d in dirs if 'Safaa' in d]
+        if len(dirs) == 0:
+            print("Warning: Safaa not found in /home/fossy/pythondeps(This is common for local dev )")
+    except FileNotFoundError:
+        print("Skipping check for /home/fossy/pythondeps(folder does not exist locally)")
+    
 
     # Create an instance of the class
     agent = SafaaAgent()
@@ -44,7 +44,7 @@ def main():
     predictions = agent.predict(data['text'].to_list())
 
     # Print the predictions
-    print(classification_report(data['label'].to_list(), predictions))
+    print(classification_report(data['label'].astype(str).to_list(), predictions))
 
 
 if __name__ == "__main__":
