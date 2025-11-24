@@ -34,7 +34,7 @@ setup(
     ),
     package_dir={"": "src"},
     install_requires=[
-        "spacy==3.8.7",
+        "spacy==3.8.11",
         "joblib==1.5.2",
         "pandas==2.3.1",
         "scikit-learn==1.6.1",
