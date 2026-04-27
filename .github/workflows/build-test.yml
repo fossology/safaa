@@ -27,13 +27,11 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install build tools
-        run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install setuptools wheel
+      - name: Install Poetry
+        run: python3 -m pip install poetry
 
       - name: Build package
         run: |
-          python3 setup.py sdist bdist_wheel
+          poetry build
         working-directory: ./Safaa
 

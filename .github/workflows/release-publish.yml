@@ -23,12 +23,12 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.8'
+          python-version: '3.12'
           architecture: 'x64'
-      - name: Install wheel
-        run: python3 -m pip install --upgrade wheel
+      - name: Install Poetry
+        run: python3 -m pip install --upgrade pip poetry
       - name: Build packages
-        run: python3 setup.py sdist bdist_wheel
+        run: poetry build
         working-directory: ./Safaa
       - name: Upload Packages to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
