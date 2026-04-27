@@ -10,13 +10,13 @@ import os
 import re
 import spacy
 from joblib import load, dump
-import pkg_resources
+from pathlib import Path
 import shutil
 
 # Constants
-DEFAULT_MODEL_DIR = pkg_resources.resource_filename(__name__, "models")
+DEFAULT_MODEL_DIR = Path(__file__).parent / "models"
 LOCAL_MODEL_DIR = "/home/fossy/Safaa"
-CONFIGS_DIR = pkg_resources.resource_filename(__name__, "configs")
+CONFIGS_DIR = Path(__file__).parent / "configs"
 
 
 class SafaaAgent:

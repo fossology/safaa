@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: © 2023 abdelrahmanjamal5565@gmail.com
+# SPDX-FileContributor: Kaushlendra Pratap Singh <kaushlendra-pratap.singh@siemens.com>
+#
+# SPDX-License-Identifier: LGPL-2.1-only
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "safaa"
+version = "0.0.4"
+description = "Reduces Fossology's false positive copyrights by predicting whether a given copyright output is a false positive and removing extraneous text from copyright notices."
+license = "LGPL-2.1-only"
+authors = [
+    "Abdelrahman Jamal <abdelrahmanjamal5565@gmail.com>",
+]
+maintainers = [
+    "Kaushlendra Pratap <kaushlendra-pratap.singh@siemens.com>",
+    "Gaurav Mishra <mishra.gaurav@siemens.com>",
+]
+readme = "README.md"
+homepage = "https://github.com/fossology/safaa"
+repository = "https://github.com/fossology/safaa"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+]
+packages = [
+    {include = "safaa", from = "src"},
+]
+include = [
+    {path = "src/safaa/models/**/*", format = ["sdist", "wheel"]},
+    {path = "src/safaa/configs/**/*", format = ["sdist", "wheel"]},
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.14"
+spacy = {version = "3.8.7", python = ">=3.9,<3.14"}
+joblib = "1.5.2"
+pandas = "2.3.1"
+scikit-learn = "1.6.1"
+
+[tool.poetry.group.dev.dependencies]
+psycopg2-binary = ">=2.9"
+requests = ">=2.28"
+flake8 = "*"
+build = "*"
