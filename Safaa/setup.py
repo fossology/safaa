@@ -36,7 +36,7 @@ setup(
     install_requires=[
         "spacy==3.8.7",
         "joblib==1.5.2",
-        "pandas==2.3.1",
+        "pandas==2.3.3",
         "scikit-learn==1.6.1",
     ],
     classifiers=[
