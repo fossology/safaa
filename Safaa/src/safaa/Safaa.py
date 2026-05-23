@@ -9,6 +9,7 @@ SafaaAgent: A module for handling false positive detection in copyright notices.
 import os
 import re
 import spacy
+import warnings
 from joblib import load, dump
 from importlib.resources import files, as_file
 from importlib.metadata import version
@@ -235,7 +236,14 @@ class SafaaAgent:
         Parameters:
         data (iterable): The data to predict.
         threshold (float): The probability threshold for classification.
-                           Defaults to 0.5.
+                           Defaults to 0.5. Only used when the loaded
+                           classifier supports predict_proba (e.g., SGD
+                           with loss='log_loss' or 'modified_huber').
+                           The default shipped model uses loss='hinge'
+                           and does not produce probabilities, so this
+                           argument is ignored for that model. A
+                           UserWarning is emitted when a non-default
+                           threshold is passed but the model cannot use it.
 
         Returns:
         list: The predictions.
@@ -257,6 +265,17 @@ class SafaaAgent:
                 "f" if prediction[1] >= threshold else "t"
                 for prediction in predictions
             ]
+
+        if threshold != 0.5:
+            warnings.warn(
+                "The loaded false positive detector does not support "
+                "probability estimates (predict_proba); the 'threshold' "
+                "argument is being ignored. Train a classifier with "
+                "loss='log_loss' or 'modified_huber' if threshold control "
+                "is required.",
+                UserWarning,
+                stacklevel=2,
+            )
 
         # Get binary predictions from the model if probability prediction is not
         # supported
