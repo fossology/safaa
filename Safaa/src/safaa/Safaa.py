@@ -142,9 +142,9 @@ class SafaaAgent:
         list: A list of strings.
         """
 
-        # If data is not a list, try converting it to a list
+        # If data is not a list, convert it to a list
         if not isinstance(data, list):
-            data = data.to_list()
+            data = list(data)
         # Ensure each item in the list is a string
         return [str(item) for item in data]
 
