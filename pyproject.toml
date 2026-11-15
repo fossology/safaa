@@ -10,7 +10,7 @@ requires = ['poetry-core>=2.0.0']
 build-backend = 'poetry.core.masonry.api'
 
 [tool.poetry]
-version = '0.0.4'
+version = '0.0.5'
 classifiers = [
     'Programming Language :: Python :: 3'
 ]
@@ -34,7 +34,7 @@ exclude = [
 requires-poetry = '>=2.0.0,<3.0.0'
 
 [tool.poetry.dependencies]
-python = '>=3.9,<3.14'
+python = '>=3.10,<3.15'
 
 [tool.poetry.group.dev.dependencies]
 psycopg2-binary = '>=2.9'
@@ -55,12 +55,14 @@ maintainers = [
     {name = 'Gaurav Mishra', email = 'mishra.gaurav@siemens.com'},
     {name = 'Kaushlendra Pratap', email = 'kaushlendra-pratap.singh@siemens.com'}
 ]
-requires-python = '>=3.9,<3.14'
+requires-python = '>=3.10,<3.15'
 dependencies = [
-    'spacy (==3.8.7)',
+    'spacy (==3.8.7) ; python_version < "3.14"',
+    'spacy (==3.8.18) ; python_version >= "3.14"',
     'joblib (==1.5.3)',
-    'pandas (==2.3.1)',
-    'scikit-learn (==1.6.1)'
+    'pandas (==2.3.3)',
+    'scikit-learn (==1.6.1) ; python_version < "3.14"',
+    'scikit-learn (==1.7.2) ; python_version >= "3.14"'
 ]
 
 [project.urls]
