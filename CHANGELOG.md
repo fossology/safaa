@@ -8,6 +8,28 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/).
 ---
 
+## Safaa 0.0.5  (2026-11-16)
+
+This release adds support for Python 3.14, so that Safaa can be installed on
+Ubuntu 26.04, and drops support for Python 3.9. On Python 3.14, spaCy 3.8.18
+and scikit-learn 1.7.2 are used; older Python versions keep spaCy 3.8.7 and
+scikit-learn 1.6.1. pandas is upgraded from 2.3.1 to 2.3.3. The bundled models
+are unchanged. The release also introduces a data pipeline to iteratively
+train the false positive detector model from a labeled CSV, locally or through
+GitHub Actions.
+
+### Authors:
+```
+> Kaushlendra Pratap <kaushlendra-pratap.singh@siemens.com>
+> Sushant Kumar <sushant.kumar@siemens-healthineers.com>
+```
+### Changes:
+* `161c60a` feat(deps): support Python 3.14
+* `3b20166` feat(datapipeline): Data Pipeline for Model Training
+* `e11a762` chore(deps): bump idna from 3.13 to 3.15
+
+---
+
 ## Safaa 0.0.4  (2026-05-12)
 
 This release focuses on dependency updates, build improvements, and CI/CD
