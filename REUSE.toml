@@ -16,7 +16,7 @@ SPDX-FileCopyrightText = "© 2023 abdelrahmanjamal5565@gmail.com, Fossology cont
 SPDX-License-Identifier = "LGPL-2.1-only"
 
 [[annotations]]
-path = "Safaa/src/safaa/models/*.pkl"
+path = ["Safaa/src/safaa/models/*.pkl", "Safaa/src/safaa/models/*.json"]
 precedence = "override"
 SPDX-FileCopyrightText = "© 2023 abdelrahmanjamal5565@gmail.com, Fossology contributors"
 SPDX-License-Identifier = "LGPL-2.1-only"
@@ -26,3 +26,10 @@ path = "poetry.lock"
 precedence = "override"
 SPDX-FileCopyrightText = "© 2026 kaushlendra-pratap.singh@siemens.com, Fossology contributors"
 SPDX-License-Identifier = "LGPL-2.1-only"
+
+# Labelled against OSSelot curation (CC0-1.0, https://github.com/Open-Source-Compliance/package-analysis).
+[[annotations]]
+path = "datasets/osselot_dataset.csv"
+precedence = "override"
+SPDX-FileCopyrightText = "OSSelot contributors, Fossology contributors"
+SPDX-License-Identifier = "CC0-1.0"

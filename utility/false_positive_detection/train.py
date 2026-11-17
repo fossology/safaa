@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 
 import pandas as pd
 import os
-from safaa.Safaa import *
+from safaa.Safaa import SafaaAgent
 
 
 def main():
@@ -26,7 +26,8 @@ def main():
         return
 
     agent = SafaaAgent()
-    save_path_initial = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "Safaa/src/safaa/models/")
+    repo = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    save_path_initial = os.path.join(repo, "Safaa", "src", "safaa", "models")
     agent.train_false_positive_detector_model(data['copyright'].to_list(),
                                               data["falsePositive"].to_list())
     agent.save(path=save_path_initial)

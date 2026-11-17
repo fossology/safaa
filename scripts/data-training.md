@@ -8,49 +8,36 @@ SPDX-License-Identifier: LGPL-2.1-only
 
 ## Overview
 
-Safaa uses an **iterative SGD (Stochastic Gradient Descent)** model for false-positive
-copyright detection. Each training run fine-tunes the existing model weights with new data
-using `partial_fit`  it does NOT train from scratch. This means you can continuously
-improve the model by feeding it new labeled data over time.
+Safaa has three models:
 
-## How It Works
+| Model | Job | Retrained by |
+|---|---|---|
+| False positive detector (TF-IDF + linear SGD) | Is this scanner finding a real copyright statement? | `train_and_release.py` (CI or local) |
+| Declutter model (spaCy NER) | Which part of the finding is the statement? | `retrain_declutter.py` (maintainer) |
+| Entity recognizer (spaCy NER) | Where is the holder? Feeds the detector's preprocessing | `SafaaAgent.train_ner_model` |
 
-```
-┌─────────────────────────────┐
-│  You provide a labeled CSV  │
-│  (text + binary 0/1 label)  │
-└──────────────┬──────────────┘
-               │
-       ┌───────▼────────┐
-       │  train_and_     │
-       │  release.py     │
-       └───────┬─────────┘
-               │
-    ┌──────────▼──────────────────────────┐
-    │  Loads existing SafaaAgent model     │
-    │  ↓                                   │
-    │  Stratified 80/20 train-test split   │
-    │  ↓                                   │
-    │  partial_fit (iterative training)    │
-    │  ↓                                   │
-    │  Evaluate: accuracy, precision,      │
-    │            recall, F1                 │
-    │  ↓                                   │
-    │  Quality gate (--min-f1)             │
-    │  ↓                                   │
-    │  Save model artifacts                │
-    └─────────────────────────────────────┘
-```
+The detector is **retrained from scratch** every time: the vocabulary is refitted,
+so words the previous model never saw count. A candidate is released only if it is
+better than the model it replaces, measured on OSSelot packages that neither model
+was trained on.
 
-## CSV Format
+## The data
 
-Your CSV must have:
-- A **text column** containing the raw copyright statement string
-- A **label column** containing binary integer labels:
-  - `0` = real copyright (true positive)
-  - `1` = false positive (noise)
+| File | What it is |
+|---|---|
+| `datasets/false_positive_detection_dataset.csv` | The 2023 dataset (`copyright`, `falsePositive`) |
+| `datasets/false_positive_detection_corrections.csv` | Reviewed relabels and exclusions for it, applied at training time; the original stays untouched. A correction that no longer matches its row stops the run. |
+| `datasets/osselot_dataset.csv` | Copyright agent findings on 233 [OSSelot](https://www.osselot.org) packages, labelled against what OSSelot's reviewers kept for each file (CC0-1.0) |
+| `datasets/regression_cases.csv` | Hand-verified cases no new model may newly fail |
+| any other CSV you add | Your labelled data: trains, never scores |
 
-Example:
+Labels are binary: `0` = real copyright, `1` = false positive. Statements whose
+year is a placeholder beside a real holder (`Copyright (C) YEAR Free Software
+Foundation`) are kept out of training and scoring: reviewers keep them in some
+files and reject them in others, so only the file can decide. `predict_with_scores`
+always flags them for review.
+
+### Your own CSV
 
 ```csv
 text,label
@@ -58,206 +45,86 @@ text,label
 "src/lib/c/tests/testlibs",1
 ```
 
-> **Note:** If your CSV uses different column names (e.g. `copyright` / `falsePositive`),
-> use `--text-col` and `--label-col` flags to specify them.
+The columns `text`/`label` and `copyright`/`falsePositive` are detected
+automatically; for other names use `--text-col` and `--label-col`.
 
----
+## The quality gate
 
-## Running Locally
+On the held-out OSSelot packages, a candidate must:
 
-### Prerequisites
+1. **silently** reject no more real copyrights than the current model,
+2. **silently** let through no more noise than the current model,
+3. flag at most one percentage point more of the findings for review,
+4. newly fail **none** of `datasets/regression_cases.csv`,
+5. reach `--min-f1` on noise (CI default 0.9).
+
+"Silently" means outside the review band. A finding SAFAA is unsure of is flagged
+(`predict_with_scores(...)["needs_review"]`) and FOSSology's decider leaves it active
+for a reviewer, so what can cost a company an attribution is a confident mistake.
+Findings near the decision boundary flip between any two retrains; counting them
+would block improvements by chance. All errors, flagged or not, are still reported.
+
+The detector's decision point is tuned so that at most 0.5% of real copyrights are
+rejected in cross-validation; rejecting a real copyright costs a reviewer a missed
+notice, so that is the constraint and catching noise is what is maximised.
+
+## Running locally
 
 ```bash
-# Clone the repo and install
-git clone https://github.com/fossology/safaa.git
-cd safaa
 poetry install
+python scripts/train_and_release.py                         # repository datasets only
+python scripts/train_and_release.py --csv my_data.csv       # plus your data
 ```
 
-### Train with default column names (`text` / `label`)
+The candidate, `report.json` (every metric, plus each held-out text the candidate
+fixed or broke) and `false_positive_detection_model.json` land in `trained_model/`.
+To use the candidate, copy the two `.pkl` files and the `.json` into
+`Safaa/src/safaa/models/`, then run `poetry run pytest -q`.
 
-```bash
-python scripts/train_and_release.py --csv path/to/your_data.csv
-```
+## Running in GitHub Actions
 
-### Train with custom column names
+Adding or changing a CSV under `datasets/` on `main` retrains automatically; so does
+**Actions → "Train and Release Model" → Run workflow**, optionally naming an extra
+CSV. A candidate that passes the gate is proposed as a pull request with its
+metrics; one that fails stops the run with the reason.
 
-```bash
-python scripts/train_and_release.py \
-    --csv datasets/false_positive_detection_dataset.csv \
-    --text-col copyright \
-    --label-col falsePositive
-```
+Pull requests opened with the default `GITHUB_TOKEN` do not trigger other
+workflows. Run the checks on the model PR by hand, or give the workflow a token
+from a GitHub App.
 
-### All available options
+## Refreshing the OSSelot dataset (maintainers)
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--csv` | *(required)* | Path to the labeled CSV |
-| `--text-col` | `text` | Column name for the copyright string |
-| `--label-col` | `label` | Column name for the binary label |
-| `--output-dir` | `trained_model/` | Where to save model artifacts (local mode only) |
-| `--test-size` | `0.2` | Fraction held out for evaluation |
-| `--min-f1` | `0.0` | Quality gate  exits with error if F1 is below this |
-| `--base-branch` | `main` | PR target branch (CI mode only) |
+`datasets/osselot_dataset.csv` is built from source, not downloaded:
 
-### Output
-
-After training, you'll find these files in `--output-dir`:
-
-```
-trained_model/
-├── false_positive_detection_model_sgd.pkl   # The SGD classifier
-├── false_positive_detection_vectorizer.pkl  # The TF-IDF vectorizer
-└── metrics.json                             # Evaluation results
-```
-
-To use the newly trained model with Safaa:
-
-```bash
-# Copy the .pkl files into the package's model directory
-cp trained_model/*.pkl Safaa/src/safaa/models/
-```
-
----
-
-## Running via GitHub Actions (CI)
-
-The pipeline runs automatically OR manually  no database access needed.
-
-### Automatic Trigger (recommended)
-
-Simply **add a new `.csv` file to the `datasets/` directory** on the `main` branch:
-
-```bash
-cp my_new_training_data.csv datasets/
-git add datasets/my_new_training_data.csv
-git commit -m "Add new training data"
-git push origin main
-```
-
-The workflow detects the new CSV and automatically:
-1. Installs dependencies via Poetry
-2. Trains the model iteratively on the new data
-3. Evaluates and checks the quality gate (F1 ≥ 0.7)
-4. If passed → creates a **Pull Request** replacing the model binary in
-   `Safaa/src/safaa/models/false_positive_detection_model_sgd.pkl`
-5. The PR includes a metrics table so reviewers can assess model quality
-
-### Manual Trigger (workflow_dispatch)
-
-Go to **Actions → "Train and Release Model" → Run workflow** and fill in:
-
-| Input | Description |
-|-------|-------------|
-| `csv_path` | Path to CSV in the repo (e.g. `datasets/my_data.csv`) |
-| `min_f1` | Quality gate threshold (default: `0.7`) |
-| `text_col` | Text column name (default: `text`) |
-| `label_col` | Label column name (default: `label`) |
-
-### What the PR looks like
-
-The auto-generated PR includes:
-- Updated `.pkl` model binary
-- Updated `metrics.json` with full evaluation results
-- A markdown table showing accuracy, precision, recall, F1, and dataset sizes
-
----
-
-## Iterative Training Strategy
-
-Because the model uses **SGD with `partial_fit`**:
-
-- Each training run **builds on** the previous model state
-- You do NOT need to retrain from scratch with all historical data
-- New data incrementally improves the model
-- You can train multiple times with different CSV batches
-
-### Recommended workflow
-
-1. Export labeled copyright data from your Fossology instance
-2. Format as CSV with `text` and `label` columns
-3. Add to `datasets/` and push → pipeline trains automatically
-4. Review the PR metrics and merge if satisfied
-5. Repeat as new data becomes available
-
----
-
-## Quality Gate
-
-The `--min-f1` flag prevents bad models from being promoted:
-
-- **Local:** Script exits with code `1` and does NOT save model artifacts
-- **CI:** Script exits with code `1`, no PR is created, workflow fails visibly
-
-Set this based on your acceptable model quality. A value of `0.7` is a reasonable
-starting point for copyright false-positive detection.
-
----
-
-## Testing on GitHub Actions
-
-Follow these steps to verify the full CI pipeline works end-to-end:
-
-### Option A: Manual trigger (quickest way to test)
-
-1. **Push your branch** (with the updated workflow + script) to the remote:
+1. Build FOSSology's copyright agent from the commit **before** its cleanup stage
+   (`85b24694d^`), so the findings are what the scanner really emits:
    ```bash
-   git push origin your-branch-name
+   git -C fossology worktree add --detach ../safaa-work/fo-precleanup 85b24694d^
+   cmake -S ../safaa-work/fo-precleanup -B ../safaa-work/fo-precleanup/build -GNinja
+   cmake --build ../safaa-work/fo-precleanup/build --target copyright
    ```
-
-2. **Go to Actions tab** in the GitHub repo.
-
-3. **Click "Run workflow"** → select your branch → fill in:
-   - `csv_path`: `datasets/false_positive_detection_dataset.csv`
-   - `text_col`: `copyright`
-   - `label_col`: `falsePositive`
-   - `min_f1`: `0.5` (use a low value for testing so the gate passes)
-
-4. Click **"Run workflow"** and watch the logs.
-
-5. If successful, a PR will be created against `main` with the updated model binary.
-
-### Option B: Simulate the automatic trigger
-
-1. Merge your workflow changes into `main` first (or test on a fork).
-
-2. Add a CSV to `datasets/` and push directly to `main`:
+2. With a [Thesmo](https://github.com/fossology/thesmo) checkout for the pinned
+   package list and fetcher:
    ```bash
-   cp your_training_data.csv datasets/new_training_data.csv
-   git add datasets/new_training_data.csv
-   git commit -m "test: add training data to trigger pipeline"
-   git push origin main
+   python scripts/build_osselot_dataset.py \
+     --agent ../safaa-work/fo-precleanup/build/src/copyright/agent/copyright \
+     --conf  ../safaa-work/fo-precleanup/src/copyright/agent/copyright.conf \
+     --thesmo ../thesmo --tier all --fetch --drop-trees --out ../safaa-work/osselot
+   cp ../safaa-work/osselot/dataset.csv datasets/osselot_dataset.csv
    ```
+   Files OSSelot recorded nothing for are not labelled; findings that match a
+   reviewer's statement only partly, or look like a statement but match none, go to
+   `review.csv` and never train.
 
-3. The workflow triggers automatically. Check the Actions tab for progress.
+## Retraining the declutter model (maintainers)
 
-> **Note:** The automatic trigger only fires on `main`. If you're testing on a
-> feature branch, use Option A (manual trigger).
+```bash
+python scripts/retrain_declutter.py --findings ../safaa-work/osselot/findings.csv \
+  --report trained_model/report.json --out ../safaa-work/declutter
+```
 
-### What to verify in the logs
-
-- **Install dependencies** → Poetry installs safaa + dev deps successfully
-- **Detect new CSV** (push trigger only) → Correctly identifies the new CSV file
-- **Train model** → Shows train/test split sizes, metrics output
-- **Quality gate** → Passes if F1 ≥ threshold
-- **PR created** → Link to the auto-generated PR appears in the log
-
-### Troubleshooting
-
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| Workflow doesn't trigger on push | CSV not in `datasets/` or not on `main` | Use `workflow_dispatch` or push to `main` |
-| `Column 'text' not found` | CSV uses different column names | Set `text_col` / `label_col` inputs |
-| Quality gate fails | F1 below threshold | Lower `--min-f1` or provide better training data |
-| PR creation fails | Missing permissions | Ensure workflow has `contents: write` and `pull-requests: write` |
-| `No new CSV detected. Skipping.` | File was not added/modified in the push diff | Ensure the CSV is a new or changed file in the commit range |
-
----
-
-## Fetching Data from Fossology (Optional)
-
-If you have direct access to a Fossology PostgreSQL database, you can use the
-`scripts/fetch_copyrights.py` helper to export copyright data to CSV.
-See `scripts/README.md` for usage details. This is **not required** for the
-training pipeline  any labeled CSV will work regardless of how it was produced.
+It trains on the reviewers' statements located inside the raw findings, plus
+`datasets/json/declutter_dataset.jsonl`, and scores the shipped and the candidate
+model on the held-out packages: statements whose holder is lost (must be 0), holder
+fully kept, junk words, and exact agreement with the reviewer. Adopt the candidate's
+`models/declutter_model` only if it is better on all four.

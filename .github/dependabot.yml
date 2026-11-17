@@ -6,7 +6,7 @@
 version: 2
 updates:
   - package-ecosystem: "pip"
-    directory: "/Safaa"
+    directory: "/"
     schedule:
       interval: "weekly"
     reviewers:
