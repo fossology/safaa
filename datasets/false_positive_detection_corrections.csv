@@ -1,0 +1,157 @@
+line,action,old_label,new_label,reason,copyright
+106,relabel,0,1,mentions copyright but asserts no ownership,copyrights Remove OpenSSL dependency and use `libgcrypt` Removal of redundant MD5 checksum from `licenseRef.json`
+4868,relabel,0,1,mentions copyright but asserts no ownership,copyright years quickbook 1.5]
+5476,relabel,0,1,mentions copyright but asserts no ownership,copyright mark_rodgers.htm
+7439,relabel,0,1,"source code, SQL, script or markup, not a statement","Copyright-Notice<a class=""top"" href=""#releaseHeader"">&#8679;</a></h3> pre class=""licenseText"" id=""licenseText377""> Third Eye Software, Inc. grants reproduction and use rights to all parties, PROVIDED that this comment is maintained in the copy. pre> li>"
+7450,relabel,0,1,template: placeholder in place of the holder,Copyright (c) &lt;year&gt; &lt;copyright holders&gt;
+8135,relabel,0,1,mentions copyright but asserts no ownership,"Copyright Treaty of 1996, the WIPO Performances and Phonograms Treaty of 1996"
+9854,relabel,0,1,mentions copyright but asserts no ownership,"Copyright CC Attribution-ShareAlike http://creativecommons.org/licenses/by-sa/3.0/ Representations, Warranties and Disclaimer"
+11778,relabel,0,1,licence or legal prose that mentions copyright,"(c) VMware receives written notice of the non-conformity within ninety (90) days following shipment. EXCEPT FOR THE PRECEDING EXPRESS LIMITED WARRANTY, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE MANDATORY LAW, VMWARE AND ITS LICENSORS PROVIDE THE SOFTWARE WITHOUT ANY WARRANTIES OF ANY KIND, EXPRE"
+11788,relabel,0,1,template: placeholder in place of the holder,"Copyright (c) [year] [copyright holders] The Universal Permissive License (UPL), Version 1.0"
+12147,relabel,0,1,licence or legal prose that mentions copyright,"copyrighted by the Author. All rights to the Work are reserved by the Author, except as specifically described below. This License describes the terms and conditions under which the Author permits you to copy, distribute and modify copies of the Work."
+12571,relabel,0,1,licence or legal prose that mentions copyright,"Copyright (C) the contributor, and should be noted as such in the comments section of the modified file(s)."
+12654,relabel,1,0,asserts who owns the copyright,"Copyright: (c) 2006 VeriSign, Inc. License: NoLicenseConcluded Comment: scanners found: UnclassifiedLicense"
+13173,relabel,1,0,asserts who owns the copyright,"COPYRIGHT NOTIFICATION\n\n(C) COPYRIGHT 2004 UNIVERSITY OF CHICAGO\n\nThis program discloses material protectable under copyright laws of the United States. Permission to copy and modify this software and its documentation is hereby granted, provided that this notice is retained thereon and on all c"
+13303,relabel,0,1,licence or legal prose that mentions copyright,(c) TCK Use Restrictions. \n \n Licensee may not create derivative works of the TCK or use the TCK to test any implementation of the Specifications except for the purpose of creating Compliant Covered Code. Licensee may not publish Licensee's test results or make claims of
+13399,relabel,0,1,licence or legal prose that mentions copyright,"Copyrights\n\nSpikeSource respects the intellectual property rights of others, and requires that the people who use the SpikeSource.com and developer.spikesource.com Websites do the same. It is our policy to respond promptly to claims of intellectual property misuse.\n\nIf you believe that your work"
+15130,relabel,1,0,asserts who owns the copyright,copyrights to RAR and the utility unRAR are exclusively owned by the author - Alexander Roshal.
+15156,exclude,1,,public-domain author line inside a code macro; reviewers differ,"COPYRIGHT "": Igor Pavlov : Public domain"" define MY_VERSION_COPYRIGHT_DATE MY_VERSION "" "" MY_COPYRIGHT "" : "" MY_DATE"
+15352,relabel,0,1,"source code, SQL, script or markup, not a statement","copyright (copyright_pk, agent_fk, pfile_fk, content, hash, type, copy_startbyte, copy_endbyte, is_enabled) VALUES (16, 8, 9, 'copyright (c) 2048', '0x5c8f0370f2ab5d53', 'statement', 0, 18, 'true'); INSERT INTO copyright_ars (ars_pk, agent_fk, upload_fk, ars_success, ars_status, ars_starttime, ars_e"
+15552,relabel,0,1,mentions copyright but asserts no ownership,"copyrights include ""red hat"", ""red hat software"" and ""red hat inc"""
+15607,relabel,0,1,"source code, SQL, script or markup, not a statement","copyright|\<c\>[^+:]|&copy)"" STR% ""includes copyrighted works of Hewlett-Packard Co for"""
+16108,relabel,0,1,"source code, SQL, script or markup, not a statement","copyright</code> &mdash; by default, <code>uglifyjs</code> will keep the initial"
+16401,exclude,0,,"authorship ('written by'), not a copyright claim; reviewers differ","COPYRIGHT This manpage was written by \fBDaniel Kahn Gillmor\fR for the Debian distribution (but may be used by others). It is released, like the rest of this Argon2 implementation, under a dual license. You may use this work under the terms of a Creative Commons CC0 1.0 License/Waiver or the Apache"
+16846,relabel,0,1,mentions copyright but asserts no ownership,"Copyright: X License Group: System Environment/Libraries Source: icu-%{version}.tgz BuildRoot: /var/tmp/%{name}-%{version} description ICU is a set of C and C++ libraries that provides robust and full-featured Unicode and locale support. The library provides calendar support, conversions for many c"
+17162,relabel,0,1,template: placeholder in place of the holder,Copyright � [YEAR] MirOS Licence [EMAIL]
+17696,relabel,0,1,copyright marker with no holder and no year,Copyright © . All rights reserved.
+17804,relabel,1,0,asserts who owns the copyright,"copyrighted information of Sun Microsystems, Inc. and title is retained by Sun."
+18478,relabel,1,0,asserts who owns the copyright,Copyright Holder: Apache Software Foundation
+18862,exclude,0,,holder 'Licence Owner' is likely a project-template default; reviewers differ,"Copyright © Licence Owner 2018)$1c80508f-fc11-4b17-944b-5390926eb859 1.0.0.0M .NETFramework,Version=v4.5.2T FrameworkDisplayName.NET Framework 4.5.2 ùÆZ * RSDSí£ÿåè6³H§\""b§Tc:\users\z003u7pt\documents\visual studio 2015\Projects\TestApplication\Test"
+19294,relabel,0,1,mentions copyright but asserts no ownership,"Copyright Treaty of 1996, the WIPO Performances and Phonograms Treaty of 1996 and the Universal Copyright Convention (as revised on July 24, 1971)."
+19640,relabel,0,1,licence or legal prose that mentions copyright,copyrightable works distributed by Google as part of the Go project.
+19711,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� especificada ou \n"""
+19712,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� suportada, converte para a ��ltima vers�� dispon��vel.\n"""
+19713,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� no formato YAML. Pode ser utilizadoa op����o -o\n"" t\tpara mudar o formato de sa��da."""
+19714,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� que a porta de servi��o na v1 �� """
+19715,relabel,0,1,"binary data or mojibake, no statement","�� deixada sem nome na v2. O padr��o �� "" service/v2'."""
+19716,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� interrompido se os pods n��o s��o gerenciados "" por um ReplicationController, ReplicaSet, Job, DaemonSet ou StatefulSet, "" e tem espera por 15 minutos.\n"" t\t$ kubectl drain foo ���grace-period=900"""
+19719,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� uma chave v��lida no diret��rio ser��\n"" t\tcolocada no configmap. Qualquer entrada de diret��rio, exceto as com "" arquivos v��lidos ser��o ignorados (por exemplo: sub-diret��rios,\n"" t\tsymlinks, devices, pipes, etc)."""
+19720,relabel,0,1,"binary data or mojibake, no statement","�� opcional.\n"""
+19721,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� mut��vel."""
+19722,relabel,0,1,"binary data or mojibake, no statement","�� verdadeira "" quando\n"""
+19723,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� enviado para o servidor."""
+19724,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� configurada v��rias vezes, apenas o ��ltimo "" valor ser�� utilizado\n"" kubectl annotate pods foo description='my frontend'\n"""
+19725,relabel,0,1,"binary data or mojibake, no statement","�� especificado, �� "" ignorado caso contr��rio"""
+19726,relabel,0,1,"binary data or mojibake, no statement","�� verdadeiro"""
+19727,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� verdadeiro, esta tamb��m �� a "" porta utilizada pelo servi��o quando for criado."""
+19728,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� criado, """
+19729,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� criado, se configurado para """
+19730,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� criado. Para os dois ��ltimos ���replicas deve ser 1. "" Valor padr��o 'Always', para CronJobs `Never`."""
+19731,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� especificada ou
+19732,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� suportada, converte para a ��ltima vers�� dispon��vel."
+19733,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� no formato YAML. Pode ser utilizadoa op����o -o para mudar o formato de sa��da. Cria um namespace com um nome especificado. Cria uma role com uma ��nica regra. Cria uma conta de servi��o com um nome especificado. Remove a restri����o de execu����o de workloads no node. Aplica a re
+19734,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� que a porta de servi��o na v1 �� chamada de 'default', enquanto ela �� deixada sem nome na v2. O padr��o �� 'service/v2'.O protocolo de rede para o servi��o ser criado. Padr��o �� 'TCP'.A porta para que o servi��o possa servir. Copiado do recurso sendo exposto, se n��o especificadoO recurso req"
+19735,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� du kubeconfig"""
+19736,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� trouv��e. "" msgstr[1] """" watch n'est compatible qu'avec les ressources individuelles et les """
+19737,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� trouv��es. """
+19738,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� du kubeconfigSupprimer le contexte sp��cifi�� du kubeconfigD��crire un ou plusieurs contextesAfficher les cluster d��finis dans kubeconfigAfficher les param��tres fusionn��s de kubeconfig ou d'un fichier kubeconfig sp��cifi��Modifier des fichiers kubeconfigMettre �� jour les annotations d'un
+19740,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� deployment \""foo\"", pods ������������ 2 ��� 10 ������, ������ """
+19741,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� replication controller \""foo\"", pods ������������ 1 ��� 5 ���"""
+19747,relabel,0,1,"binary data or mojibake, no statement","�� i nomi dei file su disco\n"" t\t kubectl create configmap my-config --from-file=key1=/path/to/bar/"" file1.txt --from-file=key2=/path/to/bar/file2.txt\n"""
+19748,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� queste risorse spesso\n"" t\trappresentano entit�� del cluster, la cancellazione non pu�� essere "" presa in carico immediatamente. Se il nodo\n"" t\tche ospita un pod �� spento o non raggiungibile da API server, "" termination pu�� richiedere molto pi�� tempo\n"" t\tdel grace pe"
+19750,relabel,0,1,"binary data or mojibake, no statement","�� mirror pod n�� gestiti dal ReplicationController,\n"" t\tReplicaSet, DaemonSet, StatefulSet o Job, allora drain non canceller�� """
+19758,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� y == y case y.typ == nil:
+19759,relabel,0,1,"binary data or mojibake, no statement",�� T == T
+19760,relabel,0,1,"binary data or mojibake, no statement",�� T == T if !x.tilde || y.tilde { return x
+19829,relabel,0,1,"binary data or mojibake, no statement",�� wraps an actual value allowing assertions to be made on it:
+19831,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� and Expect are identical
+19836,relabel,0,1,"binary data or mojibake, no statement",�� and Expect functions automatically trigger failure if any return values after the first return value are non-zero/non-nil.
+19846,relabel,0,1,"binary data or mojibake, no statement",�� BTC: 1Cbd6oGAUUyBi7X7MaR4np4nTmQZXVgkCW*
+19847,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� ETH: 0x623A3C3a72186A6336C79b18Ac1eD36e1c71A8a6* Go������������QQ���: 1055927514*
+20030,relabel,0,1,licence or legal prose that mentions copyright,"(c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.�� verbs�� apiGroups�� resources�� object����"
+20033,relabel,0,1,"source code, SQL, script or markup, not a statement","Copyright The OpenTelemetry Authors|generated|GENERATED/ && NR<=3 { found=1; next } END { if (!found) print FILENAME }' $$f; \ done); \ if [ -n ""$${licRes}"" ]; then \ echo ""license header checking failed:""; echo ""$${licRes}""; \ exit 1; \ fi"
+20057,relabel,0,1,"binary data or mojibake, no statement",�� Vin��Cius
+20104,exclude,0,,image credit without a copyright claim; reviewers differ,�� XanderOne - http://www.redbubble.com/people/XanderOn����C
+20113,relabel,0,1,"binary data, mojibake translation text or code; no holder",Copyright Flag8BIM' Japanese Print Flags 8BIM��Color Halftone SettingsH/fflff /ff������ 2Z 5- 8BIM��Color Transfer Settingsp����������������������������������������������������������������������������������������������������������������������������������������������������������������
+20121,relabel,0,1,"binary data, mojibake translation text or code; no holder","(c) for c in u""������������""])"
+20122,relabel,0,1,"source code, SQL, script or markup, not a statement","(c) for c in u""������������""]) self.assertAllEqual(starts, [0, 3, 6, 9])"
+20123,relabel,0,1,"binary data, mojibake translation text or code; no holder","(c) for c in u""������������""],"
+20142,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� J��T����R7��To��������Jvowr
+e��m��HAD��������I��t��/��������Tt|��p��������dV��#��������p����GM��4B������yD���� ����i��vST����Me������������S��qO��Gm[qN��mZ����Q+������eQ+|.����5����8[0������Z��L��w��%����Ll<F��Rbf��r��b&9������Z[V��', ����>6��b0F��[f����a���� ������8����jr(G����Tg��O����D/������[N/h��V��)����Knvf����f����gv������,=������ed��\H����Y����}��>QB\��=����`QK������������_��"
+20143,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� O��Oh��2����Fv}Wy_xE_�����x��������s����������?u!Xy����-��3��K��P��5P����1:����:��HC]P}����k��A����        ��P��:������ ��P��H5��B��I����AJ����[��K��        ��)
+20144,relabel,0,1,"binary data or mojibake, no statement",��	S��Nd����0��
+20148,relabel,0,1,"binary data, mojibake translation text or code; no holder","CopyrightOwner> <rdf:Seq/> </plus:CopyrightOwner> <plus:Licensor> <rdf:Seq/> </plus:Licensor> </rdf:Description> </rdf:RDF> </x:xmpmeta> <?xpacket end=""r""?>%�� t��IDATx������wXS����������IHB��"
+20149,relabel,0,1,"binary data, mojibake translation text or code; no holder","CopyrightOwner> <rdf:Seq/> </plus:CopyrightOwner> <plus:Licensor> <rdf:Seq/> </plus:Licensor> </rdf:Description> </rdf:RDF> </x:xmpmeta> <?xpacket end=""r""?>^&���� :IDATx������uX[��wv��`iE ,D)[��[��l������gw_E,������.%U����b ������5;������(X��,��������<W����3��������9s����������B��={��@ ����������t H��4n�������� 4`:��Y,��1 ��*��"
+20150,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	uOX.!2�� ����""��'\'����wf������k��h����4Z��$��tnr��$9#��,MFXk��H2�� ��Nm2��ET��s��rK�������������������������*��2��f��=Y����F��mRV��m(��&��������������d����F��������&����	f��X7��������y������YU��T��������c��$��PHi�������gw������4?-[3������������p]Re����qa��1����F7������O��[{I&��z%8��
+(��Y-������>/ic��_m>����Jh""T��!��rQq��������������x+c����������_Sj������������q������I��������k(��1��������"
+20151,relabel,0,1,"binary data or mojibake, no statement","��	q��C=��R����j����PA������Z��n��������w����bx ��kw[=��`W����sN����'o{����n������<��&w������n��������z��������w��#>����_<��������C>����������p��c>��^��<""����y��}��J��'����)������������7����e������k����������a������������g=��{������?����>����o��|H��>����/������������������I{������7��������;����������^������>����o��������������
+O~������������>����o������?������?����^}��3��������` ����"" ����������������_����������_��M`��a��r��v`B��������"
+20152,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� 2Q��R*��Vj����Q������������-*�����yN����u��Y������3}��zY������#x��&��������7
+20153,relabel,0,1,"binary data or mojibake, no statement",��	CC��c)��p)��8������H>������������h:����+���� ��B����
+20187,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	O*Fb@��mox����T ������G*K����{����+��rr������B&-��,X����Q��������/*����s��d%""��K?������h ������s��82p��P��������u""6��IL��e)A��:������y3��f��I`����7��VQ����,��'@+��R|��I��������������#Q����53��S����fY����i2����!��4��t ��Z9��F��X_3)eS2������Z��
+����tx7����e:��li!x��bA^��L��B��������������Go����x����`5=$����������KQ����N������H��9����)��������Dsl����>��;����*G����=����y����u����8 ��"
+20190,relabel,0,1,"binary data or mojibake, no statement",��	6*T��2q��-6��5~U!6����4������4��1��5M��'3������5����}6����5C��t3����h6}����5��6������4����5��?6��T6����4����5����69��e63��6����5W����5K��x5>��[62��5~u#6��w��6������6b	��4!����5����+z��5{����5��J��4��f\6��s6*��16&��]6��5Q����5����6������5#��6��n��4��T��5q��5��b5��N��5Dd6��e6 6������5������5��/m5������5��56n��3��nG6����i6$��5����6����<6��4����S5������5��A6H_��5k��5R��5����26
+20211,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� MZS��&1B����!p��~[��������y����������-��QI��E$%orl����m������DSRYNR����%%&o������&>��L����|I��R��1        }{N��>��J����xP��""g`TF����9��$C��&��j@[R��#E?��>I��-^��}u ��j�� ��A����4 ��`����8w��'������n��ZQ������,��nc5M����OH��
+U��������������T����@��`������(��PA������?����3*�� ����"
+20212,relabel,0,1,"binary data or mojibake, no statement","��	NU��!nep��g��[l��pj3K��Y����y+ 4����y%��f3K��Y����f��0����y%��VW{��,af	3K��Y������0������af����5 ����9��������4v} ������&����jC��r=��>7P"
+20213,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� t��tf��Mw��U����O������=������-����M9 ����aU��xS����*��x��/&+>)������6I[������UU ����|��pc��9k����FQ��IG��Y������#cApp��.
+20214,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	m��fLa9$����;`����I����`Eg3��(|��nx$����;��L��74
+3��d{-%����c-��]����m����������������8����bA����?���Q��3������RN��a��G����������Y������FKF��������y%k����rQ������/+����0�� Dg @�� ������f%DCM3��Hg-��Z��x��G��f����n~����m����g��7������<������@����Q��2g~:</������PTfx��:��q ����������������J��L������x��o��:��&��, ����D��DR��JE$��������B-������l������&3��)��S����8������\"
+20215,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	hy����Daz��1 ��1����m��Z����l������������L)������em��5��<����I>������W��������W���������i��}��������7`����v����d��>h}.��������^����t������������py������X��4d������Pn7��;in!����uS'����Y��������������g��F}#����F7x������l����y=)����c������������(3��E��������6j�����heZ��R��XJ*��������j����G��;M������ ������KnKa��f0������P""�� x����o��O������g������~w}��>��]������cl����Ol����\C��]st��������g��1'������Lc��H��7����"
+20216,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� LQ7��0@B������M41����!Laz D�� �� &�� La����G��>�� &��0������4&���������$L(aB	S��+L+ab	SK��\����c��H4����>,��E����Q>,��%����$����c����E����(6��%����$������|l������( ����F����$������|X������V ����|��(������|��m����������^�� ��.t<����������L4��D������6h��I����d��I������E����1>,����%���� ������|l������ 6��%���� ������|X��oT��@<��t��3��������%������-��J��vL.����\\����>����00"
+20239,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	N��sRU��Q����������>��������4��U����Y.L��������������<��d��k:u��{��9Q����"""
+20240,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� SA����Lc��4��i����@����L��2
+20241,relabel,0,1,"binary data, mojibake translation text or code; no holder",�� SA����Le��T��/��T���� SA����L������i����@����L��2
+20242,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	t��=K?P6,Q1����������a���������� k'�� ��jwY^8}��eN)��,��q����T;��y=z����QS��'������O������������j��q!��m������J.������������p
+��K��k����)������AYE"
+20243,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	Lj��IM`R����&5��IM`R����&5����&0��	Lj����������������3����]��������# h,""
+����xV��[��I
+0��&��k����4 m��$:����t: ����@g����`RLj��I
+0��&5��������Lj��I
+0��&��������l ;��K@Eb����*+++ ��!��!��q��
+��
+��
+��
+��
+��m!��#��s��������h��������Q7����������`RLj��I
+0��%������`RLj��I
+0��&5������`RLj��I
+0��&5����������Z��I
+0��&5����������`RLj	&}������r����me����f��|����"
+20244,relabel,0,1,"binary data, mojibake translation text or code; no holder",��        Lj��IM`R����&5��IM`R����&5����&0��        Lj��������&0��        Lj��`R����&5��IM`R����&5��I
+20245,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	UN��<L""pP<����������|��IK��<��;��g)W��g�� ��Gzj2NZ������ r����������n a����s_��������JYJ`��rEL��{p������y����0������������]""?��������V��1!����Xv�� ����s+��i��z_������4RJ��wl������o����x��������� ��*b��G������q��S PB������D%����U��yZ����#��!��8������{��k��Gy��b��;��&_G��B����e������v����S������L��Mb$��,3����L��""��&j�����-��c������C��o����x7��f����0J-?����@������K����}����������B~�������� ��sp��"
+20246,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	AA��mx��gP��������P����|uS)d.����)��H����&������$d��2����������O��""A��Y��������*��F����v���� ��g=18��6��
+������ L������w��f��z@������H����E/&����u������������1&����O$b��}4 >��Rz��A��g~����Qs9~��!��9Y8����.��2�� X��{+��1��������\4*��-u������)QNw��s������e��I����U��W������q\!2��{��.����@����V=��E����@����������#M�� ���� �� q��,����r����`J'��������d2~����la+?��4��X����l��[Um��rB"
+20247,relabel,0,1,"binary data, mojibake translation text or code; no holder","��	g��HiJ#$U��;����8����@��Z����@��J$P""�� ��W����E����J��U����KC����������F����SIK����i��������7��dq\o������b��a��')��(��@i����}����d��Y��A��b>JT��7D
+����J�� B��a#Q.��AW
+j!X����������P��CA��]����$��Te4
+5%����p������pz������Y��������:7��IW@g��4����iuL,
+����������K����f����K��I��A6����h���������A��0��@������K��M��3UN��[LU]U����]����r~T������T����M__/��gXV/y����e]1M6N/��������A9����&��zw-j��"
+20248,relabel,0,1,"binary data, mojibake translation text or code; no holder","�� SA��q[$i��c��r����������������.��v������""��������%$����DQO��%:cd��Ya3iQo����ZsN����c��sJ��eN����c?��3 ��Q����e��Q��RhC94 ��Qm����uOr����
+}������������������g������������������s����������=��-���������������������mF��7����A&��V\P*>Lt(��������.��qE	����0�� ��Z��X o2����]L��������M3������4p18r U��Q�������������j`p@����2G ������6y|����-������o���� ��������������������� ��4������������Q����K|F,��`��"
+20289,relabel,0,1,"binary data or mojibake, no statement",�� 6[��9
+20290,relabel,0,1,"binary data or mojibake, no statement",��	X��3
+21450,relabel,0,1,mentions copyright but asserts no ownership,Copyright: LGPL
+21497,relabel,1,0,asserts who owns the copyright,Copyright (c) Luca Barbato
+21621,relabel,0,1,"binary data, mojibake translation text or code; no holder",© eS3nWHd/þól¡;T.\}û?ļëfaÍÚ
+21622,relabel,0,1,"binary data, mojibake translation text or code; no holder","©        SJd3½rRs«·""¬¤I#ˏn{Îÿò+¢sG
+1iøÀ¥ 6̕kØ4<lSg~ðU×Ëpë%÷É3ËJdl_9Zø± rø¼ƲÀÜϪB+$2D°bfzcq:d:I(@Ze%CÅ{CJ0Ørôã©WI¡%V¥ºDåå­É#´$GxGð.zGeOõ¡ъP;RÔ""ä""ڀ:HBñµ\A©´ꠃXթõä0®óÈ;"
+21625,relabel,0,1,"binary data, mojibake translation text or code; no holder",© PiU¶lY=ÂfÆñCj
+21626,relabel,0,1,"binary data, mojibake translation text or code; no holder","© cµxeee}}]â\è0ÉJߒI,UÉMB»W§Éì9º«Òï÷y0pfKzb?×;´GAºáàÿOý ×ÆƆòíِy|ë¨Â~MֵZ̻ᘩ#çäcE½PgǰCHÕa9ãh´ÔBL*ƣúb'|ók²®ÕbÎá¬رơ]ãÈ]qt¿¨ϙÕlY½ȢÚsoaA] «ö¿ÿ@îâ¨""ø ¿¢%ªÈ]nð[ãðn²Æ{Ö8ÊÖ8jxBú²ö(ÔJԜyuuµ×ëé<gV¾«Ûï­Êr¶¹¹É®9e¤¦?¬p&ªt¡Á}G[B&7!í^SMV³ç"
+21627,relabel,0,1,"binary data, mojibake translation text or code; no holder",© q<G3´ëzÇ6Ûõ8/=~¥P*
+21661,relabel,0,1,"binary data, mojibake translation text or code; no holder","© 9 ;s!iÌU'6(	²đH'AßL&éæühdC,º¾>`V ä5mnePÜ ùXÂ<æͼ
+]ô£ʉÃkfÍ 7ÝL	"
+21662,relabel,0,1,"binary data, mojibake translation text or code; no holder",© 9Xa9óP9¯
+21663,relabel,0,1,"binary data, mojibake translation text or code; no holder","©	Goä2\:8eôÓ~×t+ö>yØ:ðHqAF±¢·-ÇÜ©gF#u>»1êltÅ4 ,·¸½èÑ+íà6ùâ:`NÛxÿ{ò wӣÞïUlƙOë? Mà:¸@ Ç9~õÙdAcÿ;<A÷"
+21665,relabel,0,1,"binary data, mojibake translation text or code; no holder","© ia©6,;znôHÀh%ÄàށÞ܂\%/3­`¯ðñgó ó<½=÷ìۃqÌ˱Sá§¸ yó&DÛ緍MeØpEHA4ýA[iÒî+´å¥,Ó+õêiÒ$ÚJh{ÑV4¶Ò$ÚJ´&ÑV4¶ҤI´&ÑV4¶ҤI´&M¢­4¶ҤI´&ÑV¢­4¶ҤéÚ^xõ;ÁhÍҤÝs«k¨ëéëh+í>D[XbãbÙ昜,m&S*7/7-=m19M[æԴÔETfmiS¡h+í>D[¨Â#ÃóòJ¤Mo9 ðHdäd/¢2gççSæÌÜÜET欼<ö'¥%I´vß"
+21669,relabel,0,1,"binary data, mojibake translation text or code; no holder","© KÊDI·1¶×råúádz¦¤PPéeJ%$0ÎÕ(¨ðP¸·e0BDƒd8<2²{÷®sçÆΝ۳{c¸g÷.ù»ü1?76<<¿ê{âÿ_QÿÿÄû¹xäägÇõ¯N¾nìl2GÍpÏî]ñâ»]Dý bÃÎøQÊe²$¥ÜLj 䍖É÷R"" ây¹C*ÑvoóµbWW\C>RÃU?PÆmë/ǧIJ S#Á×6îèWN»±ãMÂI´bù@¹«>·Xp{#úwOüºޙ$' ãù#Rõõ£ÃRfܦ9画M9C&P§úWFá³R^1µZ*"
+21670,relabel,0,1,"binary data, mojibake translation text or code; no holder","©	Tb-eãCqÓèk§Þ;Öà)t·°iðâٰ¸±ÂPM¦iL<ÿ|öúÙÜqã7¸ôÔó±Yï|&l¡ÁÛF­§yU+X³å'ì½E¹ùnÃ0yûí8ýýY«ùÔ%×RWå'êe45ÌP¢ÁD÷ÁÃ.B'B'3ÞLí޽D""AEE _|1 eT)såóùðx<TVV²uëVB¡Ф¯ëíí%á÷ûY¹r%^¯T*E2,L)×ôǓLÆdӦ8£aúZ>yáYѶøðu""ɹҝÕ4øÚxußZzc{''iÂaj%ï?uAhvD6zàpö!Qû)Õáë¼új¾¾,sëçð/þG>pê¹eG"
+21671,relabel,0,1,"binary data, mojibake translation text or code; no holder","©	3Jy)B5²hÚԢQ3ǐM)<©:ÿ
+IÁé±.]füV"" ¥ìêfÙzx)ï­ÆM¦ïÄgÁv/ïëmoݤ¹ý {îò¥"
+21672,relabel,0,1,"binary data, mojibake translation text or code; no holder","©	ZR(F£Q­V[­VFÃq<aۯÜèqþßú·Ëꪣ)Z-§R(zþÓ @ÂB(,¢)gN\:@kÚSEk-J/6kÓtNÁr*V¥`8£çNûP&l;!goè IDATôõÒ]r?¬ @m0ôч  ¸CîP#"
+21677,relabel,0,1,"binary data, mojibake translation text or code; no holder","© aÁAÇXAd pî--ÇƎ+¶]䟌Z	xU¶tU;K'4IHH,!²¨UvÔy8¢,""(< FÌÇ<uô9.¸à2 *¢²( HHB ûÒMÖ^ꮽߩêxã«TwnÕ=uνçüg¹·$õ^o«¢ĝ,Ià¦L¤éTÑüi¥.ÖÞÑávS$ôֽ¼JØlv)¡AÕ(N u«éÀÓó»'ëß>sÝJ'HcAÓޫZ÷ï¿ϘKEbÉhPÑà _ªm(¦ $'9QÑ좚Ì@ Ą [TRtØ%ÁMÈ&#9(¦X\i Ô p`yõfÊ䒒´ô"
+21681,relabel,0,1,"binary data or mojibake, no statement","©	NOáO4þ4%¢úbîdT Ǚ·{¾#·Eðy!î±Uè¥ô[·Û!K44úå°´ÐèX)_;Bºn$¶¶éáPºÐW±ðÉÅ !¤côꐶÀ-õ#ђۅFVm xÄSÙFÖÕâUÀ>ofÛmocfw[7/]ñ
+-©]'u¸ði«²ñ`Ðd¨ ÓȊúE°£×ȧMÁ\W0(MÕ8Ȩè X u""ÌérLð,¿¿c͋úÒÇñ ÆT¬Ó:¬9ÛÊ:;´¤§Û ݵyª æ<m
+ìQqèڮ;pS Ñk ² ãTMWH åéP÷¨Ռh¤LÃA¢FN"
+21682,relabel,0,1,mentions copyright but asserts no ownership,copyright date on PDF files
+21715,relabel,0,1,"binary data or mojibake, no statement",© sú nasledujúce formáty:

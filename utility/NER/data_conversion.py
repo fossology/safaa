@@ -88,8 +88,8 @@ def convert_jsonl_to_spacy(jsonl_path, spacy_path):
     doc_bin = spacy.tokens.DocBin()  # Initializing a DocBin for efficient storage of `Doc` objects
     for text, annotations in data:
         doc = nlp.make_doc(text)  # Creating a `Doc` object from text
-        example = spacy.training.Example.from_dict(doc,
-                                                   annotations)  # Creating an example from the `Doc` and its annotations
+        # Creating an example from the `Doc` and its annotations
+        example = spacy.training.Example.from_dict(doc, annotations)
         doc_bin.add(example.reference)  # Adding the `Doc` to the DocBin
     doc_bin.to_disk(spacy_path)  # Saving the DocBin to disk
 

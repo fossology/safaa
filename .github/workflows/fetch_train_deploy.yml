@@ -3,6 +3,8 @@
 #
 # SPDX-License-Identifier: LGPL-2.1-only
 
+# Retrain from scratch; open a PR only if the gate passes (scripts/train_and_release.py).
+
 name: Train and Release Model
 
 on:
@@ -14,21 +16,21 @@ on:
   workflow_dispatch:
     inputs:
       csv_path:
-        description: 'Path to the training CSV (relative to repo root)'
-        required: true
-        default: 'datasets/false_positive_detection_dataset.csv'
+        description: 'Extra labelled CSV to train on (relative to repo root; empty = repository datasets only)'
+        required: false
+        default: ''
       min_f1:
-        description: 'Minimum F1 score required (quality gate)'
+        description: 'Floor on the candidate noise F1 (the gate against the current model always applies)'
         required: false
-        default: '0.7'
+        default: '0.9'
       text_col:
-        description: 'CSV column name for copyright text'
+        description: 'CSV column name for copyright text (empty = auto-detect "text" or "copyright")'
         required: false
-        default: 'text'
+        default: ''
       label_col:
-        description: 'CSV column name for binary label (0/1)'
+        description: 'CSV column name for binary label 0/1 (empty = auto-detect "label" or "falsePositive")'
         required: false
-        default: 'label'
+        default: ''
 
 permissions:
   contents: write
@@ -37,6 +39,7 @@ permissions:
 jobs:
   train-release:
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -47,7 +50,7 @@ jobs:
         run: pipx install poetry
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: 'poetry'
@@ -55,45 +58,36 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Detect new CSV (push trigger)
-        id: detect-csv
-        if: github.event_name == 'push'
+      - name: Collect training CSVs
+        id: csvs
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+          INPUT_CSV: ${{ inputs.csv_path }}
         run: |
-          CSV_FILE=$(git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }} -- 'datasets/**.csv' | head -1)
-          if [ -z "$CSV_FILE" ]; then
-            echo "No new CSV detected in datasets/. Skipping."
-            echo "skip=true" >> $GITHUB_OUTPUT
+          CORE='^datasets/(false_positive_detection_dataset|false_positive_detection_corrections|osselot_dataset|regression_cases)\.csv$'
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            printf '%s\n' "$INPUT_CSV" | grep -v '^$' > extra_csvs.txt || true
           else
-            echo "csv=$CSV_FILE" >> $GITHUB_OUTPUT
-            echo "skip=false" >> $GITHUB_OUTPUT
-            echo "Detected new CSV: $CSV_FILE"
+            # No usable "before" on a first or force push.
+            if ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then BEFORE="$SHA~1"; fi
+            git diff --name-only --diff-filter=AM "$BEFORE" "$SHA" -- 'datasets/**.csv' \
+              | grep -Ev "$CORE" > extra_csvs.txt || true
           fi
+          echo "Extra CSVs:"; cat extra_csvs.txt
 
-      - name: Resolve parameters
-        id: params
-        if: steps.detect-csv.outputs.skip != 'true'
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "csv=${{ inputs.csv_path }}" >> $GITHUB_OUTPUT
-            echo "min_f1=${{ inputs.min_f1 }}" >> $GITHUB_OUTPUT
-            echo "text_col=${{ inputs.text_col }}" >> $GITHUB_OUTPUT
-            echo "label_col=${{ inputs.label_col }}" >> $GITHUB_OUTPUT
-          else
-            echo "csv=${{ steps.detect-csv.outputs.csv }}" >> $GITHUB_OUTPUT
-            echo "min_f1=0.7" >> $GITHUB_OUTPUT
-            echo "text_col=text" >> $GITHUB_OUTPUT
-            echo "label_col=label" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Train model
-        if: steps.detect-csv.outputs.skip != 'true'
+      - name: Retrain, gate and release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_ACTOR: ${{ github.actor }}
+          MIN_F1: ${{ inputs.min_f1 || '0.9' }}
+          TEXT_COL: ${{ inputs.text_col }}
+          LABEL_COL: ${{ inputs.label_col }}
         run: |
-          poetry run python scripts/train_and_release.py \
-            --csv "${{ steps.params.outputs.csv }}" \
-            --text-col "${{ steps.params.outputs.text_col }}" \
-            --label-col "${{ steps.params.outputs.label_col }}" \
-            --min-f1 "${{ steps.params.outputs.min_f1 }}"
+          ARGS=(--min-f1 "$MIN_F1")
+          while IFS= read -r csv; do ARGS+=(--csv "$csv"); done < extra_csvs.txt
+          [ -n "$TEXT_COL" ] && ARGS+=(--text-col "$TEXT_COL")
+          [ -n "$LABEL_COL" ] && ARGS+=(--label-col "$LABEL_COL")
+          poetry run python scripts/train_and_release.py "${ARGS[@]}"

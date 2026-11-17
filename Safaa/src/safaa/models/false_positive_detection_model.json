@@ -1,0 +1,151 @@
+{
+  "preprocessing_version": 2,
+  "preprocessing_fingerprint": "v2:58117ac37ca90090",
+  "calibration": {
+    "slope": 3.788049
+  },
+  "review_band": [
+    0.0523,
+    0.9477
+  ],
+  "built": "2026-11-16T17:51:50.812965+00:00",
+  "sklearn": "1.6.1",
+  "config": {
+    "loss": "hinge",
+    "alpha": 1e-05,
+    "class_weight": null,
+    "ngram_range": [
+      1,
+      3
+    ],
+    "min_df": 1,
+    "sublinear_tf": true
+  },
+  "decision_shift": 0.048137,
+  "min_real_recall": 0.995,
+  "seed": 42,
+  "test_packages_share": 0.2,
+  "held_out": {
+    "real_recall": 0.9996,
+    "fp_recall": 0.9673,
+    "fp_precision": 0.9944,
+    "fp_f1": 0.9807,
+    "real_rejected": 4,
+    "noise_missed": 24,
+    "n": 10143
+  },
+  "held_out_novel": {
+    "real_recall": 0.999,
+    "fp_recall": 0.9683,
+    "fp_precision": 0.9935,
+    "fp_f1": 0.9807,
+    "real_rejected": 4,
+    "noise_missed": 20,
+    "n": 4449
+  },
+  "shipped_on_held_out": {
+    "real_recall": 0.9996,
+    "fp_recall": 0.9673,
+    "fp_precision": 0.9944,
+    "fp_f1": 0.9807,
+    "real_rejected": 4,
+    "noise_missed": 24,
+    "n": 10143
+  },
+  "cv": {
+    "real_recall": 0.995,
+    "fp_recall": 0.9689,
+    "fp_precision": 0.9785,
+    "fp_f1": 0.9737,
+    "real_rejected": 160,
+    "noise_missed": 233,
+    "n": 39685
+  },
+  "review": {
+    "slope": 3.788049,
+    "band": [
+      0.0523,
+      0.9477
+    ],
+    "held_out_share_flagged": 0.0206,
+    "held_out_errors_flagged": "12 of 28"
+  },
+  "regression": {
+    "cases": 98,
+    "known_failures": [
+      "copyrighted by the Free Software Foundation, write to the Free Software Foundation"
+    ]
+  },
+  "data": {
+    "legacy_sha256": "4c081f653110cfbcb6fc59b67ef20f54527386845d8b4bab4d34418418a53980",
+    "corrections_sha256": "621e78d66b8e2d4d5dd7cb8d7ce0855d36145ba2775541850791ae0f1532ddf1",
+    "corrections_applied": {
+      "relabel": 121,
+      "exclude": 4
+    },
+    "osselot_sha256": "b3d38678db88f2c333bb2eead80d6051ffcaa0aede24dd8034fe5c4f1c60bfca",
+    "extra": {},
+    "train": 39685,
+    "test": 10143,
+    "test_novel": 4449,
+    "conflicts_dropped": 8,
+    "test_packages": [
+      "abseil",
+      "apt",
+      "argon2",
+      "atf",
+      "cares",
+      "catch2",
+      "colorama",
+      "cpio",
+      "debianutils",
+      "docutils",
+      "dosfstools",
+      "findutils",
+      "freertos",
+      "freetype",
+      "fribidi",
+      "git",
+      "gmp",
+      "hammerjs",
+      "harfbuzz",
+      "jquery",
+      "jqueryui",
+      "libidn2",
+      "libjpegturbo",
+      "libpsl",
+      "lighttpd",
+      "mbedtls",
+      "mpfr",
+      "nftables",
+      "nghttp2",
+      "normalizecss",
+      "openvpn",
+      "ossl",
+      "pinentry",
+      "protobuf",
+      "pugixml",
+      "pyserial",
+      "readline",
+      "riot",
+      "shadow",
+      "sqlite",
+      "unifdef",
+      "uthash",
+      "vorbis",
+      "which",
+      "wpasupplicant",
+      "yup",
+      "zephyr"
+    ],
+    "context_dependent_dropped": {
+      "legacy": 249,
+      "osselot": 77
+    },
+    "max_per_pattern": 20,
+    "near_duplicates_dropped": {
+      "train": 12511,
+      "test": 2031
+    }
+  }
+}

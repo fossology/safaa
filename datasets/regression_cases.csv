@@ -1,0 +1,103 @@
+text,label,reason
+copyrights Remove OpenSSL dependency and use `libgcrypt` Removal of redundant MD5 checksum from `licenseRef.json`,1,legacy correction: mentions copyright but asserts no ownership
+copyright years quickbook 1.5],1,legacy correction: mentions copyright but asserts no ownership
+copyright mark_rodgers.htm,1,legacy correction: mentions copyright but asserts no ownership
+"Copyright-Notice<a class=""top"" href=""#releaseHeader"">&#8679;</a></h3> pre class=""licenseText"" id=""licenseText377""> Third Eye Software, Inc. grants reproduction and use rights to all parties, PROVIDED that this comment is maintained in the copy. pre> li>",1,"legacy correction: source code, SQL, script or markup, not a statement"
+Copyright (c) &lt;year&gt; &lt;copyright holders&gt;,1,legacy correction: template: placeholder in place of the holder
+"Copyright Treaty of 1996, the WIPO Performances and Phonograms Treaty of 1996",1,legacy correction: mentions copyright but asserts no ownership
+"Copyright CC Attribution-ShareAlike http://creativecommons.org/licenses/by-sa/3.0/ Representations, Warranties and Disclaimer",1,legacy correction: mentions copyright but asserts no ownership
+"(c) VMware receives written notice of the non-conformity within ninety (90) days following shipment. EXCEPT FOR THE PRECEDING EXPRESS LIMITED WARRANTY, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE MANDATORY LAW, VMWARE AND ITS LICENSORS PROVIDE THE SOFTWARE WITHOUT ANY WARRANTIES OF ANY KIND, EXPRE",1,legacy correction: licence or legal prose that mentions copyright
+"Copyright (c) [year] [copyright holders] The Universal Permissive License (UPL), Version 1.0",1,legacy correction: template: placeholder in place of the holder
+"copyrighted by the Author. All rights to the Work are reserved by the Author, except as specifically described below. This License describes the terms and conditions under which the Author permits you to copy, distribute and modify copies of the Work.",1,legacy correction: licence or legal prose that mentions copyright
+"Copyright (C) the contributor, and should be noted as such in the comments section of the modified file(s).",1,legacy correction: licence or legal prose that mentions copyright
+"Copyright: (c) 2006 VeriSign, Inc. License: NoLicenseConcluded Comment: scanners found: UnclassifiedLicense",0,legacy correction: asserts who owns the copyright
+"COPYRIGHT NOTIFICATION\n\n(C) COPYRIGHT 2004 UNIVERSITY OF CHICAGO\n\nThis program discloses material protectable under copyright laws of the United States. Permission to copy and modify this software and its documentation is hereby granted, provided that this notice is retained thereon and on all c",0,legacy correction: asserts who owns the copyright
+(c) TCK Use Restrictions. \n \n Licensee may not create derivative works of the TCK or use the TCK to test any implementation of the Specifications except for the purpose of creating Compliant Covered Code. Licensee may not publish Licensee's test results or make claims of,1,legacy correction: licence or legal prose that mentions copyright
+"Copyrights\n\nSpikeSource respects the intellectual property rights of others, and requires that the people who use the SpikeSource.com and developer.spikesource.com Websites do the same. It is our policy to respond promptly to claims of intellectual property misuse.\n\nIf you believe that your work",1,legacy correction: licence or legal prose that mentions copyright
+copyrights to RAR and the utility unRAR are exclusively owned by the author - Alexander Roshal.,0,legacy correction: asserts who owns the copyright
+"copyright (copyright_pk, agent_fk, pfile_fk, content, hash, type, copy_startbyte, copy_endbyte, is_enabled) VALUES (16, 8, 9, 'copyright (c) 2048', '0x5c8f0370f2ab5d53', 'statement', 0, 18, 'true'); INSERT INTO copyright_ars (ars_pk, agent_fk, upload_fk, ars_success, ars_status, ars_starttime, ars_e",1,"legacy correction: source code, SQL, script or markup, not a statement"
+"copyrights include ""red hat"", ""red hat software"" and ""red hat inc""",1,legacy correction: mentions copyright but asserts no ownership
+"copyright|\<c\>[^+:]|&copy)"" STR% ""includes copyrighted works of Hewlett-Packard Co for""",1,"legacy correction: source code, SQL, script or markup, not a statement"
+"copyright</code> &mdash; by default, <code>uglifyjs</code> will keep the initial",1,"legacy correction: source code, SQL, script or markup, not a statement"
+"Copyright: X License Group: System Environment/Libraries Source: icu-%{version}.tgz BuildRoot: /var/tmp/%{name}-%{version} description ICU is a set of C and C++ libraries that provides robust and full-featured Unicode and locale support. The library provides calendar support, conversions for many c",1,legacy correction: mentions copyright but asserts no ownership
+Copyright � [YEAR] MirOS Licence [EMAIL],1,legacy correction: template: placeholder in place of the holder
+Copyright © . All rights reserved.,1,legacy correction: copyright marker with no holder and no year
+"copyrighted information of Sun Microsystems, Inc. and title is retained by Sun.",0,legacy correction: asserts who owns the copyright
+Copyright Holder: Apache Software Foundation,0,legacy correction: asserts who owns the copyright
+"Copyright Treaty of 1996, the WIPO Performances and Phonograms Treaty of 1996 and the Universal Copyright Convention (as revised on July 24, 1971).",1,legacy correction: mentions copyright but asserts no ownership
+copyrightable works distributed by Google as part of the Go project.,1,legacy correction: licence or legal prose that mentions copyright
+"�� deixada sem nome na v2. O padr��o �� "" service/v2'.""",1,"legacy correction: binary data or mojibake, no statement"
+"�� opcional.\n""",1,"legacy correction: binary data or mojibake, no statement"
+"�� verdadeira "" quando\n""",1,"legacy correction: binary data or mojibake, no statement"
+"�� especificado, �� "" ignorado caso contr��rio""",1,"legacy correction: binary data or mojibake, no statement"
+"�� verdadeiro""",1,"legacy correction: binary data or mojibake, no statement"
+"�� i nomi dei file su disco\n"" t\t kubectl create configmap my-config --from-file=key1=/path/to/bar/"" file1.txt --from-file=key2=/path/to/bar/file2.txt\n""",1,"legacy correction: binary data or mojibake, no statement"
+"�� mirror pod n�� gestiti dal ReplicationController,\n"" t\tReplicaSet, DaemonSet, StatefulSet o Job, allora drain non canceller�� """,1,"legacy correction: binary data or mojibake, no statement"
+�� T == T,1,"legacy correction: binary data or mojibake, no statement"
+�� T == T if !x.tilde || y.tilde { return x,1,"legacy correction: binary data or mojibake, no statement"
+�� wraps an actual value allowing assertions to be made on it:,1,"legacy correction: binary data or mojibake, no statement"
+�� and Expect functions automatically trigger failure if any return values after the first return value are non-zero/non-nil.,1,"legacy correction: binary data or mojibake, no statement"
+�� BTC: 1Cbd6oGAUUyBi7X7MaR4np4nTmQZXVgkCW*,1,"legacy correction: binary data or mojibake, no statement"
+"(c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.�� verbs�� apiGroups�� resources�� object����",1,legacy correction: licence or legal prose that mentions copyright
+"Copyright The OpenTelemetry Authors|generated|GENERATED/ && NR<=3 { found=1; next } END { if (!found) print FILENAME }' $$f; \ done); \ if [ -n ""$${licRes}"" ]; then \ echo ""license header checking failed:""; echo ""$${licRes}""; \ exit 1; \ fi",1,"legacy correction: source code, SQL, script or markup, not a statement"
+�� Vin��Cius,1,"legacy correction: binary data or mojibake, no statement"
+"(c) for c in u""������������""]) self.assertAllEqual(starts, [0, 3, 6, 9])",1,"legacy correction: source code, SQL, script or markup, not a statement"
+��	S��Nd����0��,1,"legacy correction: binary data or mojibake, no statement"
+"��	q��C=��R����j����PA������Z��n��������w����bx ��kw[=��`W����sN����'o{����n������<��&w������n��������z��������w��#>����_<��������C>����������p��c>��^��<""����y��}��J��'����)������������7����e������k����������a������������g=��{������?����>����o��|H��>����/������������������I{������7��������;����������^������>����o��������������
+O~������������>����o������?������?����^}��3��������` ����"" ����������������_����������_��M`��a��r��v`B��������",1,"legacy correction: binary data or mojibake, no statement"
+��	CC��c)��p)��8������H>������������h:����+���� ��B����,1,"legacy correction: binary data or mojibake, no statement"
+��	6*T��2q��-6��5~U!6����4������4��1��5M��'3������5����}6����5C��t3����h6}����5��6������4����5��?6��T6����4����5����69��e63��6����5W����5K��x5>��[62��5~u#6��w��6������6b	��4!����5����+z��5{����5��J��4��f\6��s6*��16&��]6��5Q����5����6������5#��6��n��4��T��5q��5��b5��N��5Dd6��e6 6������5������5��/m5������5��56n��3��nG6����i6$��5����6����<6��4����S5������5��A6H_��5k��5R��5����26,1,"legacy correction: binary data or mojibake, no statement"
+"��	NU��!nep��g��[l��pj3K��Y����y+ 4����y%��f3K��Y����f��0����y%��VW{��,af	3K��Y������0������af����5 ����9��������4v} ������&����jC��r=��>7P",1,"legacy correction: binary data or mojibake, no statement"
+�� 6[��9,1,"legacy correction: binary data or mojibake, no statement"
+��	X��3,1,"legacy correction: binary data or mojibake, no statement"
+Copyright: LGPL,1,legacy correction: mentions copyright but asserts no ownership
+Copyright (c) Luca Barbato,0,legacy correction: asserts who owns the copyright
+"©	NOáO4þ4%¢úbîdT Ǚ·{¾#·Eðy!î±Uè¥ô[·Û!K44úå°´ÐèX)_;Bºn$¶¶éáPºÐW±ðÉÅ !¤côꐶÀ-õ#ђۅFVm xÄSÙFÖÕâUÀ>ofÛmocfw[7/]ñ
+-©]'u¸ði«²ñ`Ðd¨ ÓȊúE°£×ȧMÁ\W0(MÕ8Ȩè X u""ÌérLð,¿¿c͋úÒÇñ ÆT¬Ó:¬9ÛÊ:;´¤§Û ݵyª æ<m
+ìQqèڮ;pS Ñk ² ãTMWH åéP÷¨Ռh¤LÃA¢FN",1,"legacy correction: binary data or mojibake, no statement"
+copyright date on PDF files,1,legacy correction: mentions copyright but asserts no ownership
+© sú nasledujúce formáty:,1,"legacy correction: binary data or mojibake, no statement"
+Copyright (c) 2019-2021 Jane Doe <jane@doe.org>. All rights reserved.,0,statement with email and trailer
+Copyright (C) 1995-2024 Jean-loup Gailly and Mark Adler,0,two holders
+"© 2019 and later: Unicode, Inc. and others.",0,symbol-led statement
+Copyright Node.js contributors.,0,holder without year
+Copyright (C) HAW Hamburg,0,short holder the entity model misses
+Copyright (c) ML!PA Consulting GmbH,0,holder with punctuation and legal form
+Copyright 2025 u-blox AG,0,lower-case holder with legal form
+Copyright (c) 2023 Vestas Wind Systems A/S,0,legal form A/S
+Copyright (c) 2018 Nordic Semiconductor ASA,0,legal form ASA
+SPDX-FileCopyrightText: 2023 Siemens AG,0,SPDX tag statement
+SPDX-FileCopyrightText: © 2022 Free Software Foundation Europe e.V.,0,SPDX tag with symbol and e.V.
+Copyright &copy; 1997-2024 University of Cambridge.,0,HTML entity symbol
+copyrights to RAR are exclusively owned by the author - Alexander Roshal.,0,ownership clause
+(C) COPYRIGHT 2004 UNIVERSITY OF CHICAGO,0,upper-case statement
+"Copyright 2009, VMware, Inc. All Rights Reserved.",0,statement the old declutter emptied
+Copyright (C) 2020 华为技术有限公司,0,non-Latin holder
+"Copyright (c) 2001 Unidex, Inc. All rights reserved.",0,company with legal form
+"copyright notice, this list of conditions and the following disclaimer.",1,BSD licence prose
+Copyright (c) [year] [copyright holders],1,template: placeholder holder
+Copyright 2001 M. Y. Name,1,template: placeholder holder that looks like initials
+Copyright (C) <year> <name of author>,1,GPL how-to-apply template
+"copyright (c) [XXXX-]YYYY, <OWNER>. All rights reserved.",1,template: placeholder holder
+(c) (1 & ((c) >> 13)),1,C expression
+copyright[] _U_ =,1,C declaration
+copyright year list to include the current year.,1,changelog prose
+Copyright Treaty of 1996,1,reference to copyright law
+"Copyright Act of 1998 (""DMCA"") is:",1,reference to copyright law
+copyright.html Generated using tools/cldr/cldr-to-icu/build-icu-data.xml fr{,1,generated file header
+Copyright ¡ 19q8 Unicodlfmlym aypostmlyy mÿaml;ymramlymym amviralym,1,binary data
+"Copyright`&c) 2018, ÿÿÿÿÿÿÿ",1,binary data
+Copyright: see file License: LGPL-2.1-or-later,1,"DEP-5 pointer, no holder"
+Copyright Status,1,heading
+"COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL",1,disclaimer prose
+copyright 12345 v2.0.1 build 20231105,1,numbers that are not years
+"Copyright"", DlgDocPreview : ""Vista Previa""",1,code label: language-file key (FCKeditor upload)
+"Copyright"", //MISSING DlgDocPreview : ""Preview""",1,code label: language-file key
+Copyright').value = GetMetadata( 'copyright' ) ;,1,code label: metadata field in code
+"copyrighted by the Free Software Foundation, write to the Free Software Foundation",1,LGPL prose naming a real organisation (FCKeditor upload)
+"VALUE ""LegalCopyright"", ""Copyright (C) 2013-2020, Yann Collet""",0,Windows version resource: key with its value
+"copyright""] = ""(C) 2013-2022 Niels Lohmann"";",0,code assigning the statement as a value
+Copyright (C) 2003-2010 Frederico Caldeira Knabben</copyright,0,real statement with markup after it (FCKeditor upload)
+© C  & d%-YI*f2sàdÕPdnkùÇäµ%r ¦´P;âD¥´'âa sÄÃC¥#´¥x#º¼ ¢ ¡2¯¼æ`ÌԠ%HCpP§ÿAj¦4© bGÂXM3,1,"binary data read as text: no holder (FCKeditor upload, SWF)"
+"© XHTMLَ""",1,"scanner read a byte of the Arabic letter U+0629 as (c) (FCKeditor upload, ar.js)"
+"Copyright &copy; 2003-2010 <a href=""#"" onclick=""SendEMail();"">Frederico Caldeira Knabben</a> td> td align=""center"">",0,"real statement in HTML, holder in the link text (FCKeditor upload, fck_about.html)"
